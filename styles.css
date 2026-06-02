@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #0b132b;
+    background: linear-gradient(135deg, #020617 0%, #075985 50%, #7dd3fc 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,15 +23,17 @@ body {
     max-width: 100%;
     height: 99vh;
     max-height: 1050px; /* Aumentado para un cuadro principal más grande */
-    background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 40%, #42a5f5 70%, #1e88e5 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(14, 165, 233, 0.15) 100%);
+    backdrop-filter: blur(45px) saturate(160%);
+    -webkit-backdrop-filter: blur(45px) saturate(160%);
     border-radius: 40px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 40px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(125, 211, 252, 0.3);
 }
 
 /* barra superior */
@@ -71,10 +73,10 @@ body {
 .glass-nav {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(15, 23, 42, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 8px 12px;
     gap: 12px;
@@ -85,7 +87,7 @@ body {
 .nav-btn {
     background: transparent;
     border: none;
-    color: #1c2541;
+    color: #e0f2fe;
     font-size: 1.2rem;
     cursor: pointer;
     width: 40px;
@@ -107,8 +109,8 @@ body {
     background: #DFFF00;
     border: none;
     color: #00110a;
-    padding: 10px 24px;
-    font-size: 0.95rem;
+    padding: 12px 28px;
+    font-size: 1.1rem;
     font-weight: 800;
     border-radius: 14px;
     cursor: pointer;
@@ -126,29 +128,209 @@ body {
     position: relative;
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     width: 100%;
     padding-top: 16px;
+    gap: 20px;
 }
 
-.central-logo {
+.hero-heading {
+    color: transparent;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: right;
+    background: linear-gradient(135deg, #ffffff 0%, #7dd3fc 50%, #0369a1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 18px 40px rgba(12, 28, 68, 0.22);
+    line-height: 0.9;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 420px;
-    height: 420px;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 1000px;
-    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.2));
-    opacity: 0.12;
-    pointer-events: none;
-    z-index: 0;
+    right: 40px;
+    bottom: 140px;
+    max-width: min(600px, 80vw);
+    opacity: 0;
+    pointer-events: none; /* Evita que el texto bloquee clics en productos */
+    transform: translateY(24px) scale(1);
+    /* Transición más lenta para el fondo */
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
+    animation: headlineRise 1s ease-out 0.2s forwards;
 }
 
+.hero-heading::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -14px;
+    width: 80px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.8);
+    filter: blur(0.8px);
+}
+
+@keyframes headlineRise {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Estado cuando la tienda está activa */
+.shop-active .hero-heading {
+    opacity: 0.08 !important; /* No se oculta, queda como marca de agua */
+    transform: scale(0.9);
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+.shop-active .corner-logo .piece {
+    opacity: 0.1 !important;
+    filter: blur(12px);
+    transition: opacity 1s ease, filter 1s ease, transform 1s ease;
+}
+
+.central-logo{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:1000px;
+    height:1000px;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+}
+
+.piece{
+    position:absolute;
+    background:#fff;
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,.18));
+    pointer-events: none; /* Las piezas del logo no deben capturar clics */
+    opacity:0;
+}
+
+/* Pieza superior */
+.p1{
+    width:210px;
+    height:230px;
+    left:150px;
+    top:20px;
+
+    clip-path:polygon(
+        15% 0%,
+        100% 0%,
+        100% 32%,
+        0% 100%,
+        15% 32%
+    );
+}
+
+/* Pieza inferior izquierda */
+.p2{
+    width:400px;
+    height:260px;
+    left:-70px;
+    top:140px;
+    
+    clip-path:polygon(
+        0% 100%,
+        42% 76%,
+        100% 0%,
+        58% 100%
+    );
+   
+}
+
+/* triangulo inferior */
+.p3{
+    width:280px;
+    height:115px;
+    left:240px;
+    top:200px;
+
+    clip-path:polygon(
+        30% 0%,
+        100% 38%,
+        0% 100%
+    );
+}
+
+/* Triángulo pequeño */
+.p4{
+    width:90px;
+    height:30px;
+    left:340px;
+    top:100px;
+
+    clip-path:polygon(
+        42% 0%,
+        100% 78%,
+        0% 100%
+    );
+}
+
+/* Animaciones de entrada para las piezas */
+.p1{
+    animation: piece1 1.4s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.p2{
+    animation: piece2 1.4s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.p3{
+    animation: piece3 1.4s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.p4{
+    animation: piece4 1.4s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+@keyframes piece1{
+    from{
+        opacity:0;
+        transform:translateY(-300px) rotate(-25deg);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) rotate(0);
+    }
+}
+
+@keyframes piece2{
+    from{
+        opacity:0;
+        transform:translateX(-500px) rotate(-15deg);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0) rotate(0);
+    }
+}
+
+@keyframes piece3{
+    from{
+        opacity:0;
+        transform:translateX(500px) rotate(20deg);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0) rotate(0);
+    }
+}
+
+@keyframes piece4{
+    from{
+        opacity:0;
+        transform:translateY(-200px) translateX(150px) scale(.2);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) translateX(0) scale(1);
+    }
+}
 .products-grid {
     position: relative;
     z-index: 1;
@@ -162,14 +344,16 @@ body {
 .side-menu {
     position: absolute;
     top: 100px;
-    right: -340px;
+    right: 30px;
     width: 280px;
     height: auto;
     background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(20px) saturate(170%);
     -webkit-backdrop-filter: blur(20px) saturate(170%);
     border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     z-index: 100;
     padding: 24px;
     display: flex;
@@ -181,12 +365,13 @@ body {
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     opacity: 0;
     transform: scale(0.1);
+    pointer-events: none;
 }
 
 .side-menu.active {
-    right: 30px;
     opacity: 1;
     transform: scale(1);
+    pointer-events: auto;
 }
 
 .close-menu {
@@ -220,12 +405,13 @@ body {
 .menu-links li a {
     text-decoration: none;
     color: #1c2541;
-    font-size: 1rem;
+    font-size: 1.15rem;
     font-weight: 500;
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
+    cursor: pointer;
     border-radius: 16px;
     transition: background 0.2s ease, transform 0.2s ease;
 }
@@ -234,6 +420,48 @@ body {
     background: rgba(255, 255, 255, 0.4);
     color: #000000;
     transform: translateX(4px);
+}
+
+.menu-brand {
+    margin-top: 16px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: transparent;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    line-height: 1.05;
+    background: linear-gradient(125deg, #ffffff, #d9eeff 45%, #7bb2ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    position: relative;
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+    animation: brandFadeIn 0.9s ease-out 0.7s forwards;
+}
+
+.menu-brand::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 56px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.65);
+    filter: blur(0.6px);
+}
+
+@keyframes brandFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* capa de la tienda virtual */
@@ -342,13 +570,13 @@ body {
 }
 
 .product-card h3 {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     color: #0b132b;
     margin-bottom: 6px;
 }
 
 .product-card p {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     color: #334155;
     margin-bottom: 14px;
 }
@@ -360,7 +588,7 @@ body {
 }
 
 .price {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #1c2541;
 }
@@ -389,7 +617,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
     padding: 20px;
-    margin: 60px auto 40px;
+    margin: 20px auto;
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 300ms ease, transform 300ms ease;
@@ -554,16 +782,32 @@ body {
     flex: 1;
     padding: 12px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .ai-msg {
     background: #e2e8f0;
     padding: 8px 12px;
     border-radius: 12px;
-    font-size: 0.85rem;
+    border-bottom-left-radius: 2px;
+    font-size: 1rem;
     color: #1c2541;
     max-width: 85%;
     line-height: 1.3;
+    align-self: flex-start;
+}
+
+.user-msg {
+    background: #1e88e5;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border-bottom-right-radius: 2px;
+    font-size: 1rem;
+    max-width: 85%;
+    align-self: flex-end;
 }
 
 .ai-chat-footer {
@@ -587,6 +831,128 @@ body {
     color: #1e88e5;
     cursor: pointer;
     padding: 4px;
+}
+
+/* Estilos del Carrito / Sesión de Compra */
+.cart-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    z-index: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.cart-overlay.active { opacity: 1; pointer-events: auto; }
+
+.cart-modal {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.cart-header h3 { color: #1c2541; text-transform: uppercase; letter-spacing: 1px; }
+
+#closeCartBtn { background: none; border: none; font-size: 2rem; cursor: pointer; color: #64748b; }
+
+.cart-items { min-height: 100px; max-height: 300px; overflow-y: auto; }
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f8fafc;
+    font-weight: 500;
+}
+
+.empty-msg { text-align: center; color: #94a3b8; padding: 20px; }
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1c2541;
+    margin-bottom: 15px;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: #1c2541;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.product-img-container {
+    width: 100%;
+    height: 140px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.product-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: crop;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover img { transform: scale(1.1); }
+
+.hidden-product {
+    display: none !important;
+}
+
+/* Estilos para el contacto resaltado */
+.contact-overlay-full {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.contact-overlay-full.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.phone-number {
+    font-size: clamp(3rem, 12vw, 8rem);
+    font-weight: 900;
+    color: #DFFF00;
+    text-shadow: 0 0 30px rgba(223, 255, 0, 0.5);
+    letter-spacing: 5px;
 }
 
 /* animaciones suaves de entrada */
