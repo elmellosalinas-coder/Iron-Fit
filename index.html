@@ -214,80 +214,67 @@
     </div>
 
     <script>
-        const menuBtn = document.getElementById('menuBtn');
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menuBtn');
         const sideMenu = document.getElementById('sideMenu');
-
         const openShopBtn = document.getElementById('openShopBtn');
         const closeShopBtn = document.getElementById('closeShopBtn');
         const shopOverlay = document.getElementById('shopOverlay');
-
         const loginBtn = document.getElementById('loginBtn');
         const closeLoginBtn = document.getElementById('closeLoginBtn');
         const loginOverlay = document.getElementById('loginOverlay');
-
         const aiToggleBtn = document.getElementById('aiToggleBtn');
         const aiChatWindow = document.getElementById('aiChatWindow');
         const minimizeChat = document.getElementById('minimizeChat');
+        const productsGrid = document.getElementById('productsGrid');
+        const shopGrid = document.querySelector('.shop-grid');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+        const contactOverlayFull = document.getElementById('contactOverlayFull');
+        const cartItemsList = document.getElementById('cartItemsList');
+        const cartTotal = document.getElementById('cartTotal');
 
         // menú lateral - expandir desde el icono del botón
-        menuBtn.addEventListener('click', (e) => {
-            const buttonRect = menuBtn.getBoundingClientRect();
-            const containerRect = document.querySelector('.canvas-container').getBoundingClientRect();
-            
-            // Calcular posición relativa al contenedor
-            const topPos = buttonRect.bottom - containerRect.top + 8;
-            const rightPos = containerRect.right - buttonRect.right - 24;
-            
-            // Posicionar el menú
-            sideMenu.style.top = topPos + 'px';
-            sideMenu.style.right = rightPos + 'px';
-            
-            // Toggle activo
-            sideMenu.classList.toggle('active');
-        });
+        if (menuBtn && sideMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                const container = document.querySelector('.canvas-container');
+                if (!container) return;
+                const buttonRect = menuBtn.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                const topPos = buttonRect.bottom - containerRect.top + 8;
+                const rightPos = containerRect.right - buttonRect.right - 24;
+                
+                // Aplicar posición y z-index para evitar que otras capas bloqueen el clic
+                sideMenu.style.top = topPos + 'px';
+                sideMenu.style.right = rightPos + 'px';
+                sideMenu.style.zIndex = "2000"; 
+                sideMenu.classList.toggle('active');
+            });
+        }
 
         document.addEventListener('click', (event) => {
-            if (!sideMenu.classList.contains('active')) return;
+            if (!sideMenu || !sideMenu.classList.contains('active')) return;
             if (event.target.closest('#sideMenu') || event.target.closest('#menuBtn')) return;
             sideMenu.classList.remove('active');
         });
 
-        // tienda virtual: mostrar productos directamente en el main (no abrir overlay)
-        const productsGrid = document.getElementById('productsGrid');
-        const shopGrid = document.querySelector('.shop-grid');
-
-        // mover contenido del shop-overlay a productsGrid (si existe)
+        // Mover contenido del shop-overlay a productsGrid
         if (shopGrid && productsGrid) {
             productsGrid.innerHTML = shopGrid.innerHTML;
             shopGrid.innerHTML = '';
-            // preparar animación stagger
-            productsGrid.querySelectorAll('.product-card').forEach((el, i) => {
-                el.style.animationDelay = (i * 70) + 'ms';
-            });
         }
 
-        // Lógica del Carrito
         let cart = [];
-        const cartOverlay = document.getElementById('cartOverlay');
-        const closeCartBtn = document.getElementById('closeCartBtn');
-        const cartItemsList = document.getElementById('cartItemsList');
-        const cartTotal = document.getElementById('cartTotal');
 
-        // Función centralizada para mostrar/ocultar la tienda
         function toggleShop(show, filterTech = false) {
             const container = document.querySelector('.canvas-container');
-            
-            // Reiniciar animaciones de los productos para que "vuelen" de nuevo al entrar
-            if (show) {
-                productsGrid.querySelectorAll('.product-card').forEach((card, i) => {
-                    card.style.animation = 'none';
-                    void card.offsetWidth;
-                    card.style.animation = '';
-                    card.style.animationDelay = (i * 70) + 'ms';
-                });
-            }
+            const nav = document.querySelector('.glass-nav');
+            if (!container || !productsGrid || !nav) return;
 
-            document.querySelector('.glass-nav').style.zIndex = "100";
+            // Ajuste de capas para que la tienda no bloquee el menú
+            nav.style.zIndex = show ? "150" : "10";
+            container.style.zIndex = show ? "50" : "1";
 
             if (show) {
                 container.classList.add('shop-active');
@@ -306,37 +293,52 @@
             const aiContainer = document.querySelector('.ai-assistant-container');
             if (aiContainer) aiContainer.style.zIndex = show ? "210" : "220";
 
-            // Lógica de filtrado para tecnología
             const cards = productsGrid.querySelectorAll('.product-card');
-            cards.forEach(card => {
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+                let isVisible = true;
                 if (filterTech) {
-                    const name = card.querySelector('h3').textContent.toLowerCase();
-                    if (name.includes('smart sweater v2') || name.includes('smartwatch elite')) {
-                        card.classList.remove('hidden-product');
-                    } else {
-                        card.classList.add('hidden-product');
+                    const name = (card.querySelector('h3').textContent || "").toLowerCase();
+                    isVisible = name.includes('v2') || name.includes('elite'); // Separa tecnología
+                }
+
+                if (isVisible) {
+                    card.classList.remove('hidden-product');
+                    // 2. Aplicar efectos solo a los visibles
+                    if (show) {
+                        card.style.animation = 'none';
+                        void card.offsetWidth;
+                        card.style.animation = '';
+                        card.style.animationDelay = (visibleCount * 70) + 'ms';
+                        visibleCount++;
                     }
                 } else {
-                    card.classList.remove('hidden-product');
+                    card.classList.add('hidden-product');
                 }
             });
         }
 
-        // Eventos del Menú
         document.getElementById('linkInicio').addEventListener('click', (e) => {
             e.preventDefault();
-            toggleShop(false);
-            sideMenu.classList.remove('active');
+            toggleShop(false); 
+            if (sideMenu) sideMenu.classList.remove('active');
+            
+            // Cerrar todos los estados
+            if (contactOverlayFull) contactOverlayFull.classList.remove('active');
+            if (loginOverlay) loginOverlay.classList.remove('active');
+            if (cartOverlay) cartOverlay.classList.remove('active');
 
-            // Reiniciar todas las animaciones principales (Logo, Título y Contenedor)
-            const elementsToReset = [
-                ...document.querySelectorAll('.piece'),
-                document.querySelector('.hero-heading'),
-                document.querySelector('.canvas-container')
-            ];
+            // Reiniciar animaciones de forma segura para el navegador
+            const pieces = document.querySelectorAll('.piece');
+            const heading = document.querySelector('.hero-heading');
+            const canv = document.querySelector('.canvas-container');
+            
+            const elements = [...Array.from(pieces)];
+            if(heading) elements.push(heading);
+            if(canv) elements.push(canv);
 
-            elementsToReset.forEach(el => {
-                if(!el) return;
+            elements.forEach(el => {
                 el.style.animation = 'none';
                 void el.offsetWidth; // Forzar reflujo para que el navegador reinicie el ciclo de animación
                 el.style.animation = '';
@@ -355,10 +357,9 @@
             sideMenu.classList.remove('active');
         });
 
-        const contactOverlayFull = document.getElementById('contactOverlayFull');
         document.getElementById('linkContacto').addEventListener('click', (e) => {
             e.preventDefault();
-            contactOverlayFull.classList.add('active');
+            contactOverlayFull.classList.add('active'); // Mostrar número
             sideMenu.classList.remove('active');
         });
 
@@ -462,6 +463,7 @@
         // chat bot ia
         aiToggleBtn.addEventListener('click', () => aiChatWindow.classList.toggle('active'));
         minimizeChat.addEventListener('click', () => aiChatWindow.classList.remove('active'));
+        });
     </script>
     <script>
         // ripple effect for buttons
