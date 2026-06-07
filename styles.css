@@ -1,49 +1,72 @@
-/* configuraciones globales y reseteo */
+/* ==========================================
+   WAYUU STORE — CSS COMPLETO MEJORADO
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap');
+
 :root {
     --primary-wayuu: #2A0000;
     --accent-red: #FF2600;
     --accent-green: #00ff66;
     --accent-gold: #ffd700;
-    --glass-border: rgba(255, 255, 255, 0.3);
+    --accent-coral: #FF6B35;
+    --accent-turq: #00d4c8;
+    --glass-border: rgba(255, 255, 255, 0.35);
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-shine: rgba(255, 255, 255, 0.55);
 }
 
 * {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    /* Ocultar barras de scroll en Firefox y Edge/IE para todos los elementos */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Ocultar barra de scroll en Chrome, Safari y navegadores basados en Webkit */
+*::-webkit-scrollbar {
+    display: none !important;
 }
 
 body {
-    /* Fondo Claro y Profesional para resaltar colores fuertes */
-    background: radial-gradient(circle at top left, #f8fafc, #e2e8f0, #cbd5e1);
+    background: 
+        radial-gradient(ellipse at 20% 10%, rgba(71, 85, 105, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 90%, rgba(30, 41, 59, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 40%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
+        linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 35%, #cbd5e1 70%, #f8fafc 100%);
     background-attachment: fixed;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
     overflow: hidden;
     position: relative;
 }
 
+/* Textura sutil de fondo */
 body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMikiLz48L3N2Zz4=');
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
+        repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px);
     pointer-events: none;
-    z-index: -1;
-    backdrop-filter: blur(0.5px);
+    z-index: 0;
 }
 
-/* Fondo de figuras con paralaje */
+/* ======================================
+   STICKERS — SISTEMA DE ANIMACIÓN RICO
+   ====================================== */
+
 .parallax-bg {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; /* Aumentado para asegurar visibilidad sobre el fondo del body */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
     pointer-events: none;
 }
 
@@ -54,12 +77,54 @@ body::after {
     overflow: hidden;
 }
 
+
+
+
+
+/* 6 variantes de float con trayectorias distintas */
+@keyframes float-v1 {
+
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(15px, -40px) rotate(10deg); }
+    50% { transform: translate(-10px, -70px) rotate(-5deg); }
+    75% { transform: translate(20px, -30px) rotate(5deg); }
+}
+@keyframes float-v2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, 20px) scale(1.1); }
+    66% { transform: translate(-20px, 50px) scale(0.9); }
+}
+@keyframes float-v3 {
+    0%, 100% { transform: translate(0, 0) rotateY(0); }
+    50% { transform: translate(-50px, -40px) rotateY(180deg); }
+}
+@keyframes float-v4 {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    25% { transform: translateY(-50px) rotate(15deg); }
+    50% { transform: translateY(10px) rotate(-15deg); }
+    75% { transform: translateY(-30px) rotate(5deg); }
+}
+@keyframes float-v5 {
+    0%, 100% { transform: translate(0, 0); }
+    20% { transform: translate(30px, -20px); }
+    40% { transform: translate(-30px, -40px); }
+    60% { transform: translate(40px, 20px); }
+    80% { transform: translate(-10px, 30px); }
+}
+@keyframes float-v6 {
+    0%, 100% { transform: rotate(0deg) translate(0,0); }
+    50% { transform: rotate(-10deg) translate(10px, 10px); }
+}
+
+@keyframes stickerFade {
+    0%, 100% { opacity: 0; }
+    20%, 80% { opacity: 1; }
+}
+
 .sticker-3d {
     position: absolute;
     transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    will-change: transform;
-    opacity: 1;
+    will-change: transform, opacity;
 }
 
 .sticker-icon {
@@ -68,167 +133,182 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(5px) saturate(180%);
-    -webkit-backdrop-filter: blur(5px) saturate(180%);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    animation: float-v1 infinite ease-in-out; /* Animación por defecto */
-    animation-duration: inherit;
-    animation-delay: inherit;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
 }
-
-/* Variaciones de rotación para diferentes direcciones */
-@keyframes float-v1 {
-    0%, 100% { transform: rotateX(0deg) translateY(0) scale(1); }
-    50% { transform: rotateX(25deg) translateY(-20px); }
-}
-
-@keyframes float-v2 {
-    0%, 100% { transform: rotateY(0deg) translateY(0) scale(1); }
-    50% { transform: rotateY(-25deg) translateY(-25px); }
-}
-
-@keyframes float-v3 {
-    0%, 100% { transform: rotate3d(1, 1, 0, 0deg) translateY(0) scale(1); }
-    50% { transform: rotate3d(1, 1, 0, 20deg) translateY(-15px); }
-}
-
-@keyframes float-v4 {
-    0%, 100% { transform: rotate3d(0, 1, 1, 0deg) translateY(0) scale(1); }
-    50% { transform: rotate3d(0, 1, 1, -20deg) translateY(-20px); }
-}
-
-/* Clases para aplicar las direcciones */
-.dir-v1 { animation-name: float-v1 !important; }
-.dir-v2 { animation-name: float-v2 !important; }
-.dir-v3 { animation-name: float-v3 !important; }
-.dir-v4 { animation-name: float-v4 !important; }
-
-/* Colores vibrantes para los iconos */
-.icon-cart i { color: #00ff66; filter: drop-shadow(0 0 10px #00ff66) saturate(2); }
-.icon-bag i { color: #00d4ff; filter: drop-shadow(0 0 10px #00d4ff) saturate(2); }
-.icon-verified i { color: #ffd700; filter: drop-shadow(0 0 10px #ffd700) saturate(2); }
-.icon-card i { color: #ff2600; filter: drop-shadow(0 0 10px #ff2600) saturate(2); }
-.icon-tag i { color: #ff00ff; filter: drop-shadow(0 0 10px #ff00ff) saturate(2); }
-.icon-box i { color: #00ffcc; filter: drop-shadow(0 0 10px #00ffcc) saturate(2); }
-.icon-truck i { color: #ffa500; filter: drop-shadow(0 0 10px #ffa500) saturate(2); }
-.icon-star i { color: #ffff00; filter: drop-shadow(0 0 10px #ffff00) saturate(2); }
-.icon-coupon i { color: #ff0066; filter: drop-shadow(0 0 10px #ff0066) saturate(2); }
-.icon-wallet i { color: #7b00ff; filter: drop-shadow(0 0 10px #7b00ff) saturate(2); }
 
 .sticker-icon i {
-    font-size: 1.5rem;
+    font-size: 100%;
     transition: transform 0.3s ease;
 }
 
-.hero-heading, .piece, .mini-logo, .menu-brand {
-    user-select: none;
+/* Colores de iconos */
+.icon-cart i    { color: #00ff66; filter: drop-shadow(0 0 6px #00ff66); }
+.icon-bag i     { color: #00d4ff; filter: drop-shadow(0 0 6px #00d4ff); }
+.icon-verified i{ color: #ffd700; filter: drop-shadow(0 0 6px #ffd700); }
+.icon-card i    { color: #ff2600; filter: drop-shadow(0 0 6px #ff2600); }
+.icon-tag i     { color: #ff00ff; filter: drop-shadow(0 0 6px #ff00ff); }
+.icon-box i     { color: #00ffcc; filter: drop-shadow(0 0 6px #00ffcc); }
+.icon-truck i   { color: #ffa500; filter: drop-shadow(0 0 6px #ffa500); }
+.icon-star i    { color: #ffdd00; filter: drop-shadow(0 0 6px #ffdd00); }
+.icon-coupon i  { color: #ff0066; filter: drop-shadow(0 0 6px #ff0066); }
+.icon-wallet i  { color: #a855f7; filter: drop-shadow(0 0 6px #a855f7); }
+.icon-heart i   { color: #ff4d80; filter: drop-shadow(0 0 6px #ff4d80); }
+.icon-gem i     { color: #00d4c8; filter: drop-shadow(0 0 6px #00d4c8); }
+
+/* ======================================
+   CONTENEDOR PRINCIPAL — CRISTAL 3D
+   ====================================== */
+
+.canvas-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 50;
 }
 
-/* Estado cuando el login está activo: el cristal se encoge */
+.canvas-container.shop-active {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+}
+
+.canvas-container.shop-active::before,
+.canvas-container.shop-active::after {
+    opacity: 0;
+}
+
+
+
 .canvas-container.login-mode {
+    margin: auto;
+    min-height: unset;
     width: 500px;
-    height: 400px;
-    border-radius: 20px;
-    padding: 70px; /* Ajustado para evitar padding excesivo */
+    height: 420px;
+    border-radius: 28px;
+    padding: 0;
+    display: flex;
     justify-content: center;
     align-items: center;
-    /* Sombra de calidad limpia sin brillo */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.2);
-    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    box-shadow:
+        0 40px 80px rgba(0,0,0,0.2),
+        inset 0 2px 3px rgba(255,255,255,0.8),
+        inset 0 -2px 4px rgba(0,1,0,0.08);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+/* ======================================
+   NAVEGACIÓN — GLASS 3D
+   ====================================== */
 
 .top-bar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    position: absolute;
-    top: 10px; /* Más cerca del borde superior */
-    left: 20px; /* Más cerca del borde izquierdo */
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    right: 20px;
     width: calc(100% - 40px);
-    z-index: 100; /* Prioridad de clic */
-    pointer-events: none; /* Permite que los clics pasen a través del contenedor hacia los productos */
+    z-index: 100;
+    pointer-events: none;
     transition: opacity 0.4s ease;
 }
 
-.login-mode .top-bar, 
-.login-mode .main-content, 
+body.login-mode .top-bar,
+.login-mode .main-content,
 .login-mode .ai-assistant-container {
     opacity: 0;
-    pointer-events: none;
     visibility: hidden;
-    transition: opacity 0.2s ease-out, visibility 0.2s; /* Desvanecimiento ultra rápido para evitar el 'bug' visual */
+    pointer-events: none; /* Desactiva interacción pero mantiene visibilidad */
+    transition: opacity 0.3s ease, visibility 0.3s;
 }
 
-/* contenedor estilo vidrio donde estan los botones  */
+/* ESTILOS DEL LOGO DE TRIÁNGULOS */
+.logo-cristal-container {
+    width: 80px; 
+    height: 80px;
+    pointer-events: auto; /* Permite interactuar con el logo */
+    background: transparent;
+    border: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.logo-cristal-container:hover {
+    transform: scale(1.15) rotate(5deg) translateY(0); /* Rotación más sutil */
+    animation-play-state: paused;
+}
+
 .glass-nav {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    border-radius: 25px;
-    padding: 6px 15px;
-    gap: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.3);
-    pointer-events: auto; /* Reactiva los clics solo dentro de la barra de botones */
-    transition: max-width 0.6s cubic-bezier(0.19, 1, 0.22, 1),
-                background 0.4s ease,
-                box-shadow 0.6s ease;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.28) 1%,
+        rgba(255,255,255,0.8) 1%,
+        rgba(255,255,255,0.1) 10%
+    );
+    backdrop-filter: blur(1px) saturate(200%);
+    -webkit-backdrop-filter: blur(1px) saturate(200%);
+    border-top: 1.5px solid rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    border-right: 1px solid rgba(255,255,255,0.5);
+    border-radius: 40px;
+    padding: 5px 12px;
+    gap: 7px;
+    box-shadow:
+        0 8px 24px rgba(2,0,0,0.1),
+        inset 0 1px 2px rgba(255,255,255,0.1),
+        inset 0 -1px 1px rgba(0,20,0,0.04);
+    pointer-events: auto;
+    transition: max-width 0.6s cubic-bezier(0.19,1,0.22,1), background 0.4s ease;
     max-width: fit-content;
     position: relative;
     overflow: hidden;
 }
 
-/* Efecto de destello (glint) al expandir el menú */
 .glass-nav::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 100%;
-    background: linear-gradient(
-        to right,
-        transparent,
-        rgba(255, 255, 255, 0.6),
-        transparent
-    );
+    top: 0; left: 0;
+    width: 120px; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
     transform: translateX(-150%) skewX(-25deg);
     pointer-events: none;
-    z-index: 5;
+    z-index: 100;
 }
 
 .glass-nav.menu-active::before {
-    animation: glintMove 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    animation: glintMove 0.8s cubic-bezier(0.19,1,0.22,1) forwards;
 }
 
-/* Borde reactivo que cambia de color según el fondo */
-.glass-nav::after {
-    content: "";
-    position: absolute;
-    inset: -1px; /* Se sitúa exactamente sobre el borde */
-    border-radius: inherit;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    /* El truco para que reaccione al color de abajo */
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    z-index: -1;
+@keyframes glintMove {
+    to { transform: translateX(300%) skewX(-25deg); }
 }
 
-/* botones iconográficos internos */
 .nav-btn {
     background: transparent;
     border: none;
     color: var(--primary-wayuu);
-    font-size: 1rem; /* Iconos un poco más pequeños */
+    font-size: 1rem;
     cursor: pointer;
-    width: 32px; /* Botones más compactos */
-    height: 32px;
+    width: 28px; height: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -236,103 +316,47 @@ body::after {
     pointer-events: auto;
     transition: background 0.3s ease, color 0.3s ease;
 }
-
-.nav-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
-    color: var(--accent-red);
-}
+.nav-btn:hover { background: rgba(0,0,0,0.05); color: var(--accent-red); }
 
 #loginBtn {
     background: radial-gradient(circle at 30% 30%, #fff4b3 0%, var(--accent-gold) 50%, #b8860b 100%);
     color: var(--primary-wayuu);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 
-        0 4px 15px rgba(184, 134, 11, 0.5), 
-        inset 0 2px 4px rgba(255, 255, 255, 0.7), 
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 4px 15px rgba(184,134,11,0.5), inset 0 2px 4px rgba(255,255,255,0.7), inset 0 -2px 4px rgba(0,0,0,0.3);
 }
-
 #loginBtn:hover {
     transform: translateY(-2px) scale(1.1);
-    background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--accent-gold) 50%, #daa520 100%);
-    box-shadow: 
-        0 8px 25px rgba(255, 215, 0, 0.6),
-        inset 0 4px 6px rgba(255, 255, 255, 0.8), 
-        inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+    background: radial-gradient(circle at 30% 30%, #fff 0%, var(--accent-gold) 50%, #daa520 100%);
+    box-shadow: 0 8px 25px rgba(255,215,0,0.6), inset 0 4px 6px rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.4);
     color: #000;
 }
 
-/* botón de compra llamativo (verde fosforescente) */
 .buy-btn {
-    /* Restauración de color rojo con efecto de gota 3D */
     background: radial-gradient(circle at 30% 30%, #ff5e3a 0%, var(--accent-red) 50%, #b31b00 100%);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #FFFFFF; /* Texto blanco para máximo contraste */
-    padding: 8px 20px; /* Botón de compra más pequeño */
-    font-size: 0.95rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #FFF;
+    padding: 6px 16px;
+    font-size: 0.85rem;
     font-weight: 800;
-    border-radius: 50px; /* Forma de gota/píldora */
+    border-radius: 50px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    /* Sombras para efecto de volumen y profundidad */
-    box-shadow: 
-        0 10px 25px rgba(255, 38, 0, 0.4),
-        inset 0 4px 6px rgba(255, 255, 255, 0.4), 
-        inset 0 -4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(255,38,0,0.4), inset 0 4px 6px rgba(255,255,255,0.4), inset 0 -4px 10px rgba(0,0,0,0.3);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
 .buy-btn:hover {
     transform: translateY(-1px) scale(1.01);
     background: radial-gradient(circle at 30% 30%, #b2ff59 0%, var(--accent-green) 50%, #00c853 100%);
-    box-shadow: 
-        0 15px 30px rgba(0, 255, 102, 0.5),
-        inset 0 6px 8px rgba(255, 255, 255, 0.5), 
-        inset 0 -4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 15px 30px rgba(0,255,102,0.5), inset 0 6px 8px rgba(255,255,255,0.5), inset 0 -4px 12px rgba(0,0,0,0.4);
 }
-
-/* buy button active/cart state */
 .buy-btn.cart-active {
     background: radial-gradient(circle at 30% 30%, #00ffcc 0%, var(--accent-green) 50%, #00b34a 100%);
-    border-color: rgba(255, 255, 255, 0.4);
-    color: #ffffff;
-    box-shadow: 
-        0 10px 25px rgba(0, 255, 102, 0.4),
-        inset 0 4px 6px rgba(255, 255, 255, 0.5), 
-        inset 0 -4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(0,255,102,0.4), inset 0 4px 6px rgba(255,255,255,0.5), inset 0 -4px 10px rgba(0,0,0,0.3);
 }
 
-/* logo principal en el centro */
-.main-content {
-    position: relative;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch; /* Fix: evita que el grid de productos se colapse al centro en Brave */
-    width: 100%;
-    transition: opacity 0.4s ease;
-    gap: 20px;
-    overflow-y: auto; /* Activado para permitir el desplazamiento vertical */
-    min-height: 0; /* Permite que el flex item se encoja si es necesario */
-}
-
-
-
-.central-logo{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:1000px;
-    height:1000px;
-    transform:translate(-50%,-50%);
-    pointer-events:none;
-}
-
-/* Estilos para el menú expandible dentro de la barra superior */
 .menu-links {
     list-style: none;
     display: flex;
@@ -343,19 +367,13 @@ body::after {
     overflow: hidden;
     opacity: 0;
     margin: 0;
-    transition: max-width 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease, margin 0.6s ease;
+    transition: max-width 0.6s cubic-bezier(0.19,1,0.22,1), opacity 0.4s ease, margin 0.6s ease;
 }
-
-.glass-nav.menu-active .menu-links {
-    max-width: 600px;
-    opacity: 1;
-    margin: 0 10px;
-}
-
+.glass-nav.menu-active .menu-links { max-width: 600px; opacity: 1; margin: 0 10px; }
 .menu-links li a {
     text-decoration: none;
     color: var(--primary-wayuu);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -366,215 +384,233 @@ body::after {
     transition: background 0.3s ease, transform 0.2s ease;
     white-space: nowrap;
 }
+.menu-links li a:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
 
-.menu-links li a:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-}
+/* ======================================
+   ÁREA DE PRODUCTOS — 2 FILAS × 5 COL
+   ====================================== */
 
-@keyframes brandFadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* capa de la tienda virtual */
-.shop-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(42, 0, 0, 0.4); /* Darker, Wayuu-inspired transparent background */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 90;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-}
-
-.shop-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.shop-container {
-    width: 98%;
-    max-width: 1500px;
-    height: 95%; 
-    background: rgba(255, 255, 255, 0.95); /* Keep it mostly white for product visibility */
-    border-radius: 24px;
-    padding: 30px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    transform: translateY(30px);
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+.main-content {
+    position: relative;
+    flex: 1;
     display: flex;
     flex-direction: column;
-}
-
-.shop-overlay.active .shop-container {
-    transform: translateY(0);
-}
-
-.shop-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px; 
-    color: #2A0000; /* Dark Wayuu-inspired color */
-}
-
-.close-shop {
-    background: transparent;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer; 
-    color: #2A0000; /* Dark Wayuu-inspired color */
-}
-
-.shop-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    justify-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    transition: opacity 0.4s ease;
     gap: 20px;
     overflow-y: auto;
-    flex: 1;
-    padding-right: 10px;
+    min-height: 0;
+    z-index: 5;
 }
+
+.products-grid {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1600px;
+    /* 2 filas fijas de 5 columnas */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    padding: 85px 20px 30px 20px;
+    margin: 0 auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 400ms ease, transform 400ms ease, visibility 400ms;
+    pointer-events: none;
+}
+
+.products-grid.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+}
+
+/* Scrollbar */
+.main-content::-webkit-scrollbar { width: 10px; }
+.main-content::-webkit-scrollbar-track { 
+    background: rgba(0, 0, 0, 0.05); 
+    border-radius: 10px; 
+    margin: 10px;
+}
+.main-content::-webkit-scrollbar-thumb { 
+    background: linear-gradient(to bottom, var(--accent-red), var(--accent-coral));
+    border-radius: 10px; 
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+.main-content::-webkit-scrollbar-thumb:hover { 
+    background: var(--accent-red); 
+}
+
+/* ======================================
+   TARJETAS DE PRODUCTO — CRISTAL 3D REAL
+   ====================================== */
 
 .product-card {
-    background: #ffffff; 
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border-radius: 20px;
-    padding: 15px; 
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    flex: 0 0 300px; /* Tamaño fijo para que no se encojan */
     position: relative;
-    color: #2A0000; /* Dark Wayuu-inspired color */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease, border-color 0.6s ease;
-    perspective: 2500px;
-    overflow: hidden; /* Necesario para contener el destello */
+    border-radius: 19px;
+    padding: 15px;
+    color: var(--primary-wayuu);
+    overflow: visible; /* Para el efecto 3D */
     z-index: 1;
-    backface-visibility: hidden;
-    transform: translateZ(0); /* Aceleración por hardware */
-}
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+    transition: transform 0.5s cubic-bezier(0.23,1,0,991), box-shadow 3.5s ease;
+    animation: popIn 0.5s both;
 
-/* Capas de contenido para evitar solapamientos */
-.product-img-container {
-    position: relative;
-    z-index: 5; /* Imagen al fondo */
-}
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border-top: 1.5px solid rgba(255,255,255,0.8);
+    border-left: 1.5px solid rgba(255,255,255,0.5);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
 
-.product-card h3, .product-card p, .product-footer {
-    position: relative;
-    z-index: 10; /* Texto sobre la imagen */
-}
-
-.product-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 30; /* El Badge siempre arriba de todo */
-    background: var(--accent-green);
-    color: #003311;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    text-transform: lowercase;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Destello interno (Cristal) */
+/* Pseudo-elemento: cara trasera del cristal (efecto de grosor) */
 .product-card::before {
     content: "";
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 450px; 
-    height: 450px;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.2) 0%,
-        transparent 70%
+    inset: 0;
+    border-radius: 32px;
+    background: linear-gradient(
+        var(--glint-angle, -30deg),
+        transparent 80%,
+        rgba(255,255,255,70.55) 50%,
+        rgba(255,255,255,0.5) 50%,
+        transparent 20%
     );
-    transform: translate(-50%, -50%) rotate(var(--glint-angle, -25deg)) translateY(130%);
+    transform: translateY(150%);
     pointer-events: none;
-    z-index: 2; 
+    z-index: 2;
+    transition: transform 0s;
+}
+.product-card:hover::before {
+    animation: glintMove 1.2s cubic-bezier(0.23,1,0.32,1) forwards;
 }
 
-.product-card:hover::before {
-    opacity: 1;
-    animation: glintMove 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
+
 
 .product-card:hover {
-    /* Movimiento más decente: elevación clara y leve inclinación */
-    transform: translateY(-15px) scale(1.03) rotateX(3deg);
-    filter: none !important; /* Corregido: Ahora elimina cualquier filtro de desenfoque */
-    backdrop-filter: none !important; /* Elimina el efecto esmerilado para máxima claridad */
-    -webkit-backdrop-filter: none !important;
-    background: #ffffff; 
-    /* Sombra multi-capa para profundidad real */
-    box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.15), 
-        0 10px 10px rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 255, 102, 0.5);
+    transform: translateY(-14px) scale(1.05) rotateX(4deg) rotateY(1deg);
+    box-shadow:
+        0 30px 60px rgba(0,0,0,0.16),
+        0 10px 20px rgba(0,0,0,0.08),
+        inset 0 2px 3px rgba(255,255,255,1),
+        inset 2px 0 4px rgba(255,255,255,0.5),
+        inset 0 -1px 2px rgba(0,0,0,0.06),
+        0 0 40px rgba(255,107,53,0.1),
+        /* Sombra coloreada que da sensación de cuerpo */
+        8px 24px 40px rgba(255,107,53,0.08),
+        -4px 10px 20px rgba(0,212,200,0.06);
+    background:
+        linear-gradient(
+            160deg,
+            rgba(255,255,255,0.8) 0%,
+            rgba(255,255,255,0.6) 35%,
+            rgba(255,255,255,0.5) 60%,
+            rgba(255,255,255,0.7) 100%
+        );
+    border-top-color: rgba(255,255,255,0.95);
+    border-left-color: rgba(255,255,255,0.7);
 }
 
-.product-img-placeholder {
-    height: 120px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    color: #94a3b8;
-    margin-bottom: 15px;
+@keyframes popIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Imagen con brillo propio */
+.product-img-container {
+    width: 100%;
+    height: 130px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 5;
+    /* Borde cristal en la imagen */
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.7),
+        0 4px 12px rgba(0,0,0,0.1);
+}
+.product-img-container img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+/* Brillo sobre la imagen */
+.img-glass-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.25) 0%,
+        transparent 50%
+    );
+    border-radius: 14px;
+    pointer-events: none;
+}
+.product-card:hover img { transform: scale(1.08); }
+
+.product-badge {
+    position: absolute;
+    top: 12px; right: 12px;
+    z-index: 30;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+.badge-premium { background: var(--accent-gold); color: #4a3000; }
+.badge-nuevo   { background: var(--accent-green); color: #003311; }
+.badge-oferta  { background: var(--accent-red); color: white; }
+
+.product-card h3,
+.product-card p,
+.product-footer,
+.quantity-selector {
+    position: relative;
+    z-index: 10;
 }
 
 .product-card h3 {
-    font-size: 1.25rem; /* Restaurado tamaño original */
-    color: #2A0000; /* Dark Wayuu-inspired color */
-    margin-bottom: 6px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--primary-wayuu);
+    margin-bottom: 5px;
+    font-weight: 700;
 }
 
-.product-card p {
-    font-size: 0.75rem; /* Aún más pequeña y elegante */
-    color: #5C0000; /* Slightly lighter dark Wayuu-inspired color */
-    margin-bottom: 12px;
-    line-height: 1.4;
-    opacity: 0.7;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Máximo 2 líneas para que no ocupen mucho espacio */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+
 
 .quantity-selector {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    font-size: 0.85rem;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--primary-wayuu);
 }
-
 .quantity-selector input {
-    width: 45px;
-    padding: 5px;
+    width: 42px;
+    padding: 4px;
     border-radius: 8px;
     border: 1px solid rgba(0,0,0,0.1);
-    background: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.6);
     text-align: center;
     outline: none;
+    font-size: 0.8rem;
 }
 
 .product-footer {
@@ -584,653 +620,395 @@ body::after {
 }
 
 .price {
-    font-size: 1.5rem; /* Restaurado tamaño original */
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
     font-weight: 700;
-    color: #2A0000; /* Dark Wayuu-inspired color */
+    color: var(--primary-wayuu);
 }
 
 .add-to-cart {
-    background: rgba(0, 255, 102, 0.1); 
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
-    color: #008f39; 
-    border: 1px solid rgba(0, 255, 102, 0.4);
-    padding: 10px 20px; /* Más padding */
-    border-radius: 12px; /* Borde más suave */
+    background: linear-gradient(
+        135deg,
+        rgba(0,255,102,0.18) 0%,
+        rgba(0,255,102,0.06) 100%
+    );
+    backdrop-filter: blur(8px);
+    color: #006629;
+    border: 1px solid rgba(0,255,102,0.45);
+    border-top-color: rgba(0,255,102,0.7);
+    padding: 8px 16px;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: 700;
-    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
-    box-shadow: 0 6px 14px rgba(0, 255, 102, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    box-shadow:
+        0 4px 12px rgba(0,255,102,0.1),
+        inset 0 1px 1px rgba(255,255,255,0.6);
 }
 .add-to-cart:hover {
-    background: rgba(0, 255, 102, 0.2);
-    border-color: rgba(0, 255, 102, 0.6);
-    box-shadow: 0 10px 20px rgba(0, 255, 102, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    background: rgba(0,255,102,0.25);
+    border-color: rgba(0,255,102,0.65);
+    box-shadow: 0 8px 20px rgba(0,255,102,0.2), inset 0 1px 1px rgba(255,255,255,0.8);
+    transform: translateY(-1px);
 }
+.add-to-cart:active { transform: translateY(1px) scale(0.98); }
 
-.add-to-cart:active { transform: translateY(1px) scale(0.995); }
+.hidden-product { display: none !important; }
 
-/* Productos dentro del main */
-.products-grid {
-    position: relative;
-    z-index: 1;
-    width: 100%; 
-    max-width: 1600px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 columnas proporcionales */
-    gap: 20px; 
-    padding: 40px 20px 40px 20px; /* Reducido drásticamente el padding inferior para ocupar todo el espacio */
-    margin: 0 auto;
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    transition: opacity 400ms ease, transform 400ms ease, visibility 400ms;
-    pointer-events: auto;
-}
+/* Eliminadas capas shop-overlay y central-logo para mejorar fluidez y permitir clics */
+/* ======================================
+   SHOP OVERLAY
+   ====================================== */
 
-/* Estilo de la barra de scroll para la tienda */
-.main-content::-webkit-scrollbar {
-    width: 6px; /* Más delgada para mayor sutileza */
-    display: block !important; /* Forzamos visualización */
-}
-.main-content::-webkit-scrollbar-track {
-    background: transparent; /* Fondo transparente para no ensuciar el diseño */
-    border-radius: 10px;
-}
-.main-content::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 102, 0.2); /* Color verde muy suave y transparente */
-    border-radius: 10px;
-    transition: background 0.3s ease;
-}
-.main-content::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 255, 102, 0.5); /* Se nota un poco más al pasar el mouse */
-}
 
-.products-grid.active { 
-    opacity: 1; 
-    transform: translateY(0); 
-    pointer-events: auto;
-    visibility: visible;
+.shop-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(42,0,0,0.35);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 90;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
 }
+.shop-overlay.active { opacity: 1; pointer-events: auto; }
+.shop-container {
+    width: 98%; max-width: 1500px; height: 95%;
+    background: rgba(255,255,255,0.92);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    transform: translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.19,1,0.22,1);
+    display: flex; flex-direction: column;
+}
+.shop-overlay.active .shop-container { transform: translateY(0); }
+.shop-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; color: #2A0000; }
+.close-shop { background: transparent; border: none; font-size: 1.8rem; cursor: pointer; color: #2A0000; }
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; overflow-y: auto; flex: 1; padding-right: 10px; }
 
-@keyframes popIn {
-    from { opacity: 0; transform: translateY(12px) scale(0.995); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
+/* ======================================
+   LOGIN
+   ====================================== */
 
 .login-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent; /* No overlay color, container itself is the background */
-    z-index: 110;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; 
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent;
+    z-index: 1000;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s;
 }
-
-.login-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-@keyframes zoomIn {
-    from {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
+.login-overlay.active { opacity: 1; pointer-events: auto; }
 .login-card {
     background: transparent;
+    padding: 40px 35px;
+    width: 100%; height: 100%;
+    border: none;
+    box-shadow: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    border: none;
-    padding: 40px 35px;
-    width: 100%;
-    height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    position: relative; opacity: 0;
+    animation: zoomIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.25s forwards;
+    overflow: hidden;
+}
+.login-card::before {
+    content: ""; position: absolute; top: 50%; left: 50%;
+    width: 200%; height: 160px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);
+    transform: translate(-50%,-50%) rotate(-35deg) translateY(200%);
+    pointer-events: none; z-index: 1;
+}
+.login-overlay.active .login-card::before {
+    animation: glintMove 2.2s cubic-bezier(0.23,1,0.32,1) 0.8s forwards;
+}
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+.close-login {
+    position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;
+    background: transparent; border: none; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 2.2rem; line-height: 1; cursor: pointer; color: #fff;
+    opacity: 0.8; transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275); z-index: 10;
+}
+.close-login:hover { opacity: 1; background: transparent; transform: scale(1.2) rotate(90deg); text-shadow: 0 0 15px rgba(255,255,255,0.8); }
+.login-card h3, .login-form, .social-login-divider, .social-login-container { position: relative; z-index: 5; }
+.login-card h3 { margin-bottom: 25px; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-family: 'Playfair Display', serif; }
+.social-login-divider { color: rgba(255,255,255,0.6); font-size: 0.8rem; margin: 20px 0 15px; width: 100%; text-align: center; text-transform: lowercase; }
+.social-login-container { display: flex; gap: 20px; justify-content: center; }
+.social-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275); font-size: 1.2rem; }
+.social-btn.phone { background: radial-gradient(circle at 30% 30%, #fff4b3 0%, var(--accent-gold) 50%, #b8860b 100%); color: var(--primary-wayuu); box-shadow: 0 5px 15px rgba(184,134,11,0.3), inset 0 2px 4px rgba(255,255,255,0.5); }
+.social-btn.google { background: rgba(255,255,255,0.9); box-shadow: 0 5px 15px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,1); }
+.social-btn.facebook { background: radial-gradient(circle at 30% 30%, #4c70ba 0%, #3b5998 50%, #2d4373 100%); color: white; box-shadow: 0 5px 15px rgba(59,89,152,0.3), inset 0 2px 4px rgba(255,255,255,0.3); }
+.social-btn:hover { transform: translateY(-3px) scale(1.1); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+.login-form { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 320px; }
+.login-form input { padding: 16px 20px; font-size: 1.15rem; background: rgba(255,255,255,0.4); border: 2px solid rgba(255,215,0,0.8); border-radius: 12px; outline: none; color: #000; transition: all 0.3s ease; }
+.login-form input::placeholder { color: rgba(0,0,0,0.6); }
+.login-form input:focus { border-color: var(--accent-gold); background: rgba(255,255,255,0.25); box-shadow: 0 0 15px rgba(255,215,0,0.5); animation: goldPulse 2s infinite ease-in-out; }
+@keyframes goldPulse { 0% { border-color: rgba(255,215,0,0.4); box-shadow: 0 0 5px rgba(255,215,0,0.2); } 50% { border-color: rgba(255,215,0,1); box-shadow: 0 0 20px rgba(255,215,0,0.6); } 100% { border-color: rgba(255,215,0,0.4); box-shadow: 0 0 5px rgba(255,215,0,0.2); } }
+.login-submit-btn { background: radial-gradient(circle at 30% 30%, #fff4b3 0%, var(--accent-gold) 50%, #b8860b 100%); border: 1px solid rgba(255,255,255,0.4); color: var(--primary-wayuu); padding: 16px; font-size: 1.15rem; border-radius: 50px; cursor: pointer; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(184,134,11,0.4), inset 0 4px 6px rgba(255,255,255,0.6), inset 0 -4px 10px rgba(0,0,0,0.2); transition: all 0.3s cubic-bezier(0.175,0.885,0.32,1.275); }
+.login-submit-btn:hover { transform: translateY(-2px) scale(1.02); background: radial-gradient(circle at 30% 30%, #fff 0%, var(--accent-gold) 50%, #daa520 100%); box-shadow: 0 15px 30px rgba(184,134,11,0.5), inset 0 6px 8px rgba(255,255,255,0.7), inset 0 -4px 12px rgba(0,0,0,0.3); }
+
+/* ======================================
+   IA CHAT & CARRITO
+   ====================================== */
+
+.ai-assistant-container { position: fixed; bottom: 30px; right: 30px; z-index: 220; display: flex; flex-direction: column; align-items: flex-end; pointer-events: none; transition: opacity 0.4s ease; gap: 12px; }
+.ai-toggle-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--primary-wayuu); color: white; border: none; font-size: 1.4rem; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; pointer-events: auto; transition: transform 0.3s; }
+.ai-toggle-btn:hover { transform: scale(1.1); }
+.ai-chat-window { width: 280px; height: 350px; background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 1px solid rgba(255,165,0,0.4); display: flex; flex-direction: column; overflow: hidden; opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; transition: all 0.3s cubic-bezier(0.19,1,0.22,1); }
+.ai-chat-window.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.ai-chat-header { background: var(--primary-wayuu); color: white; padding: 12px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
+.ai-chat-header button { background: transparent; border: none; color: white; font-size: 1.2rem; cursor: pointer; }
+.ai-chat-body { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+.ai-msg { background: #F0F0F0; padding: 8px 12px; border-radius: 12px; border-bottom-left-radius: 2px; font-size: 0.85rem; color: var(--primary-wayuu); max-width: 85%; line-height: 1.3; align-self: flex-start; }
+.user-msg { background: var(--accent-red); color: white; padding: 8px 12px; border-radius: 12px; border-bottom-right-radius: 2px; font-size: 0.85rem; max-width: 85%; align-self: flex-end; }
+.ai-chat-footer { display: flex; padding: 8px; border-top: 1px solid #e2e8f0; background: white; }
+.ai-chat-footer input { flex: 1; border: none; outline: none; font-size: 0.85rem; padding: 4px; }
+.ai-chat-footer button { background: transparent; border: none; color: var(--accent-red); cursor: pointer; padding: 4px; }
+
+.cart-overlay { position: fixed; inset: 0; background: rgba(42,0,0,0.5); backdrop-filter: blur(8px); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.cart-overlay.active { opacity: 1; pointer-events: auto; }
+.cart-modal { 
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.28) 1%,
+        rgba(255,255,255,0.8) 1%,
+        rgba(255,255,255,0.1) 10%
+    );
+    backdrop-filter: blur(20px) saturate(200%);
+    -webkit-backdrop-filter: blur(20px) saturate(200%);
+    border-top: 1.5px solid rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    border-right: 1px solid rgba(255,255,255,0.5);
+    width: 95%; max-width: 500px; border-radius: 28px; padding: 35px; 
+    display: flex; flex-direction: column; gap: 20px; 
+    box-shadow:
+        0 40px 80px rgba(0,0,0,0.2),
+        inset 0 2px 3px rgba(255,255,255,0.8),
+        inset 0 -2px 4px rgba(0,1,0,0.08);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.cart-modal::before {
+    content: ""; position: absolute; top: 50%; left: 50%;
+    width: 200%; height: 160px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);
+    transform: translate(-50%,-50%) rotate(-35deg) translateY(200%);
+    pointer-events: none; z-index: 1;
+}
+.cart-overlay.active .cart-modal::before {
+    animation: glintMove 2.2s cubic-bezier(0.23,1,0.32,1) 0.8s forwards;
+}
+.cart-header { position: relative; z-index: 5; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+.cart-header h3 { color: #fff; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Playfair Display', serif; }
+#closeCartBtn { background: none; border: none; font-size: 2rem; cursor: pointer; color: #fff; opacity: 0.7; transition: all 0.3s; }
+#closeCartBtn:hover { opacity: 1; transform: rotate(90deg); }
+.cart-items { min-height: 100px; max-height: 400px; overflow-y: auto; padding-right: 10px; }
+.cart-items::-webkit-scrollbar { width: 4px; }
+.cart-items::-webkit-scrollbar-track { background: transparent; }
+.cart-items::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+.cart-item { position: relative; z-index: 5; display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 500; color: #fff; font-size: 0.95rem; }
+.empty-msg { text-align: center; color: #94a3b8; padding: 20px; }
+.total-row { position: relative; z-index: 5; display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 900; color: #fff; margin: 10px 0; font-family: 'Playfair Display', serif; }
+.checkout-btn {
+    position: relative; z-index: 5;
+    width: 100%; 
+    background: radial-gradient(circle at 30% 30%, #ff5e3a 0%, var(--accent-red) 50%, #b31b00 100%);
+    color: white; border: none; padding: 16px; font-weight: 800; font-size: 1.1rem; cursor: pointer; border-radius: 50px; 
+    box-shadow: 0 10px 25px rgba(255,38,0,0.3), inset 0 4px 6px rgba(255,255,255,0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.checkout-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(255,38,0,0.4); }
+
+.contact-overlay-full { position: fixed; inset: 0; background: rgba(42,0,0,0.85); backdrop-filter: blur(15px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.contact-overlay-full.active { opacity: 1; pointer-events: auto; }
+.phone-number { font-family: 'Playfair Display', serif; font-size: clamp(3rem,12vw,8rem); font-weight: 900; color: var(--accent-green); text-shadow: 0 0 30px rgba(0,255,102,0.5); letter-spacing: 5px; }
+
+/* ======================================
+   ANIMACIONES GLOBALES
+   ====================================== */
+
+.animate-fade-in { animation: fadeIn 1s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+button { position: relative; overflow: hidden; border-radius: 12px; transition: transform 250ms ease-out, box-shadow 250ms ease, background 200ms ease; -webkit-tap-highlight-color: transparent; }
+button:hover { transform: scale(1.02); }
+button:active { transform: scale(0.99); }
+button:focus { outline: none; box-shadow: 0 4px 12px rgba(12,20,30,0.10), 0 0 0 3px rgba(255,38,0,0.06); }
+
+.ripple { position: absolute; border-radius: 50%; transform: scale(0); animation: rippleAnim 600ms linear; pointer-events: none; opacity: 0.9; background: rgba(255,255,255,0.35); }
+@keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+.nav-btn { border-radius: 50%; padding: 8px; }
+
+/* ======================================
+   ESTILOS PIE DE PRODUCTOS (SHOW MORE)
+   ====================================== */
+
+.products-footer-actions {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    box-shadow: none;
-    opacity: 0;
-    animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards; /* Añadido retraso de 0.25s */
-    overflow: hidden;
-}
-
-/* Efecto de destello de cristal para el Login */
-.login-card::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200%;
-    height: 160px;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(255, 255, 255, 0.15),
-        transparent
-    );
-    transform: translate(-50%, -50%) rotate(-35deg) translateY(200%);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.login-overlay.active .login-card::before {
-    /* El brillo se activa 0.6s después para que la ventana ya haya terminado de crecer */
-    animation: glintMove 2.2s cubic-bezier(0.23, 1, 0.32, 1) 0.8s forwards;
-}
-
-.close-login {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.2rem;
-    line-height: 1;
-    cursor: pointer;
-    color: white;
-    opacity: 0.8;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    gap: 40px;
+    padding: 40px 0 80px 0;
+    width: 100%;
+    height: auto;
     z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
 }
 
-/* Asegurar que el contenido del login esté sobre el destello */
-.login-card h3, 
-.login-form, 
-.social-login-divider, 
-.social-login-container {
-    position: relative;
-    z-index: 5;
-}
-
-.close-login:hover { 
+.products-footer-actions.active {
     opacity: 1;
-    background: transparent;
-    transform: scale(1.2) rotate(90deg);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    visibility: visible;
 }
 
-.login-card h3 {
-    margin-bottom: 20px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+.show-more-btn {
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.28) 1%,
+        rgba(255,255,255,0.8) 1%,
+        rgba(255,255,255,0.1) 10%
+    );
+    backdrop-filter: blur(15px) saturate(200%);
+    -webkit-backdrop-filter: blur(15px) saturate(200%);
+    border-top: 1.5px solid rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    border-right: 1px solid rgba(255,255,255,0.5);
+    border-left: 1.5px solid rgba(255,255,255,0.4);
+    color: var(--primary-wayuu);
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-transform: lowercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(2,0,0,0.1), inset 0 1px 2px rgba(255,255,255,0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.show-more-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: var(--accent-red);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border-color: rgba(255, 255, 255, 0.9);
+}
+
+.end-of-products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    opacity: 0.8;
+}
+
+.end-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+
+.end-of-products p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--primary-wayuu);
+    font-style: italic;
+}
+
+.hidden-info { display: none !important; }
+
+/* ======================================
+   FOOTER DE CRISTAL (TIENDA)
+   ====================================== */
+
+.glass-footer {
+    width: 90%;
+    max-width: 800px;
+    padding: 35px;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.25) 0%,
+        rgba(255,255,255,0.05) 100%
+    );
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-top: 1.5px solid rgba(255,255,255,0.7);
+    border-left: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 30px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.05);
+}
+
+.footer-sections {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
     margin-bottom: 25px;
 }
 
-.social-login-divider {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.8rem;
-    margin: 20px 0 15px;
-    position: relative;
-    width: 100%;
-    text-align: center;
-    text-transform: lowercase;
-}
-
-.social-login-container {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-}
-
-.social-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    font-size: 1.2rem;
-}
-
-.social-btn.phone {
-    background: radial-gradient(circle at 30% 30%, #fff4b3 0%, var(--accent-gold) 50%, #b8860b 100%);
-    color: var(--primary-wayuu);
-    box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.5);
-}
-
-.social-btn.google {
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 1);
-}
-
-.social-btn.facebook {
-    background: radial-gradient(circle at 30% 30%, #4c70ba 0%, #3b5998 50%, #2d4373 100%);
-    color: white;
-    box-shadow: 0 5px 15px rgba(59, 89, 152, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3);
-}
-
-.social-btn:hover {
-    transform: translateY(-3px) scale(1.1);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.login-form {
+.footer-col {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    max-width: 320px;
+    gap: 10px;
 }
 
-.login-form input {
-    padding: 16px 20px;
-    font-size: 1.15rem;
-    background: rgba(255, 255, 255, 0.4); /* Mucho más visible */
-    border: 2px solid rgba(255, 215, 0, 0.8); /* Borde dorado marcado */
-    border-radius: 12px;
-    outline: none;
-    color: #000; /* Texto oscuro para máxima visibilidad */
+.footer-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    text-transform: lowercase;
+    margin-bottom: 5px;
+    color: var(--primary-wayuu);
+}
+
+.footer-col a {
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--primary-wayuu);
+    opacity: 0.6;
     transition: all 0.3s ease;
 }
 
-.login-form input::placeholder {
-    color: rgba(0, 0, 0, 0.6);
-}
-
-.login-form input:focus {
-    border-color: var(--accent-gold);
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-    animation: goldPulse 2s infinite ease-in-out;
-}
-
-@keyframes goldPulse {
-    0% { border-color: rgba(255, 215, 0, 0.4); box-shadow: 0 0 5px rgba(255, 215, 0, 0.2); }
-    50% { border-color: rgba(255, 215, 0, 1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
-    100% { border-color: rgba(255, 215, 0, 0.4); box-shadow: 0 0 5px rgba(255, 215, 0, 0.2); }
-}
-
-.login-submit-btn {
-    /* Efecto de gota 3D en color dorado */
-    background: radial-gradient(circle at 30% 30%, #fff4b3 0%, var(--accent-gold) 50%, #b8860b 100%);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: var(--primary-wayuu); /* Texto oscuro para mejor contraste sobre el dorado */
-    padding: 16px;
-    font-size: 1.15rem;
-    border-radius: 50px;
-    cursor: pointer; 
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 
-        0 10px 25px rgba(184, 134, 11, 0.4), 
-        inset 0 4px 6px rgba(255, 255, 255, 0.6), 
-        inset 0 -4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.login-submit-btn:hover {
-    transform: translateY(-2px) scale(1.02);
-    background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--accent-gold) 50%, #daa520 100%);
-    box-shadow: 
-        0 15px 30px rgba(184, 134, 11, 0.5), 
-        inset 0 6px 8px rgba(255, 255, 255, 0.7), 
-        inset 0 -4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* widget de asistencia con ia */
-.ai-assistant-container {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    z-index: 220;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    pointer-events: none; /* Clave: el contenedor invisible ya no bloquea los productos de la derecha */
-    transition: opacity 0.4s ease;
-    gap: 12px;
-}
-
-.ai-toggle-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #2A0000; /* Dark Wayuu-inspired color */
-    color: white;
-    border: none;
-    font-size: 1.4rem;
-    cursor: pointer;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: auto; /* Reactiva el clic solo en el botón circular */
-    transition: transform 0.3s;
-}
-.ai-toggle-btn:hover {
-    transform: scale(1.1);
-}
-
-.ai-chat-window {
-    width: 280px;
-    height: 350px;
-    background: rgba(255, 255, 255, 0.9); /* Keep it light and transparent */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    border: 1px solid rgba(255,165,0,0.4); /* Orange border */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    pointer-events: none; 
-    /* Se mantiene así para que cuando no esté activa no estorbe */
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.ai-chat-window.active {
+.footer-col a:hover {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
+    color: var(--accent-red);
+    transform: translateX(5px);
 }
 
-.ai-chat-header {
-    background: #2A0000; /* Dark Wayuu-inspired color */
-    color: white;
-    padding: 12px;
-    font-size: 0.85rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
+.footer-bottom {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--primary-wayuu);
+    opacity: 0.5;
 }
 
-.ai-chat-header button {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer; 
-}
+/* ======================================
+   LOADER / SPINNER
+   ====================================== */
 
-.ai-chat-body {
-    flex: 1;
-    padding: 12px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 8px; 
-}
-
-.ai-msg {
-    background: #F0F0F0; /* Light background for AI messages */
-    padding: 8px 12px;
-    border-radius: 12px;
-    border-bottom-left-radius: 2px;
-    font-size: 1rem;
-    color: #2A0000; /* Dark Wayuu-inspired color */
-    max-width: 85%;
-    line-height: 1.3; 
-    align-self: flex-start;
-}
-
-.user-msg {
-    background: #FF2600; /* Fluorescent red */
-    color: white;
-    padding: 8px 12px;
-    border-radius: 12px;
-    border-bottom-right-radius: 2px;
-    font-size: 1rem;
-    max-width: 85%;
-    align-self: flex-end; 
-}
-
-.ai-chat-footer {
-    display: flex;
-    padding: 8px;
-    border-top: 1px solid #e2e8f0;
-    background: white;
-}
-
-.ai-chat-footer input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 0.85rem;
-    padding: 4px;
-}
-
-.ai-chat-footer button {
-    background: transparent;
-    border: none;
-    color: #FF2600; /* Fluorescent red */
-    cursor: pointer;
-    padding: 4px;
-}
-
-/* Estilos del Carrito / Sesión de Compra */
-.cart-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(42, 0, 0, 0.5); /* Darker, Wayuu-inspired transparent background */
-    backdrop-filter: blur(8px);
-    z-index: 300;
+.loader {
+    padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    opacity: 0; 
-    pointer-events: none;
-    transition: opacity 0.3s ease;
 }
 
-.cart-overlay.active { opacity: 1; pointer-events: auto; }
-
-.cart-modal {
-    background: white;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 24px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column; 
-    gap: 20px;
-}
-
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px; 
-}
-
-.cart-header h3 { color: #2A0000; text-transform: uppercase; letter-spacing: 1px; }
-
-#closeCartBtn { background: none; border: none; font-size: 2rem; cursor: pointer; color: #5C0000; }
-
-.cart-items { min-height: 100px; max-height: 300px; overflow-y: auto; }
-
-.cart-item {
-    display: flex; 
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #f8fafc;
-    font-weight: 500; 
-}
-
-.empty-msg { text-align: center; color: #94a3b8; padding: 20px; }
-
-.total-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.4rem;
-    font-weight: 800; 
-    color: #2A0000; /* Dark Wayuu-inspired color */
-    margin-bottom: 15px; 
-}
-
-.checkout-btn {
-    width: 100%; 
-    background: #FF2600; /* Fluorescent red */
-    color: white;
-    border: none;
-    padding: 15px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer; 
-    border-radius: 12px;
-}
-
-.product-img-container {
-    width: 100%;
-    height: 140px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #f1f5f9;
-    margin-bottom: 10px; 
-}
-
-.product-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Corregido de 'crop' a 'cover' para que la imagen se vea bien */
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover img { transform: scale(1.1); }
-
-.hidden-product {
-    display: none !important;
-}
-
-/* Estilos para el contacto resaltado */
-.contact-overlay-full {
-    position: fixed;
-    inset: 0;
-    background: rgba(42, 0, 0, 0.85); /* Darker, Wayuu-inspired transparent background */
-    backdrop-filter: blur(15px);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; 
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-}
-
-.contact-overlay-full.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.phone-number {
-    font-size: clamp(3rem, 12vw, 8rem);
-    font-weight: 900;
-    color: #00ff66; /* Verde para contacto */
-    text-shadow: 0 0 30px rgba(0, 255, 102, 0.5); 
-    letter-spacing: 5px;
-}
-
-/* animaciones suaves de entrada */
-.animate-fade-in {
-    animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-/* La animación smoothLogoEntrance ya no se usa directamente en los elementos eliminados */
-.animate-scale-up {
-    opacity: 0;
-    animation: smoothLogoEntrance 1.4s cubic-bezier(0.15, 0.85, 0.31, 1) forwards;
-    animation-delay: 0.2s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes smoothLogoEntrance {
-    0% {
-        opacity: 0;
-        transform: scale(0.82) translateY(25px) rotateX(-10deg);
-        filter: blur(4px);
-    }
-    50% {
-        opacity: 0.6;
-        filter: blur(0px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0) rotateX(0deg);
-    }
-}
-
-/* Estilos base y efectos profesionales para todos los botones */
-button {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    transition:
-        transform 250ms ease-out,
-        box-shadow 250ms ease,
-        background 200ms ease;
-    -webkit-tap-highlight-color: transparent; 
-}
-
-/* Hover más suave */
-button:hover {
-    transform: translateY(-1px) scale(1.01);
-}
-
-/* Click suave */
-button:active {
-    transform: translateY(0) scale(0.98);
-}
-
-/* Focus */ 
-button:focus {
-    outline: none;
-    box-shadow:
-        0 4px 12px rgba(12,20,30,0.10),
-        0 0 0 3px rgba(255, 38, 0, 0.06); /* Red focus ring */
-}
-
-/* Small adjustment to avoid double-scaling */
-button:hover { transform: scale(1.02); }
-button:active { transform: scale(0.99); }
-
-/* buy button active/cart state */
-
-/* Ripple element */
-.ripple {
-    position: absolute;
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 38, 0, 0.1);
+    border-left-color: var(--accent-red);
     border-radius: 50%;
-    transform: scale(0);
-    animation: rippleAnim 600ms linear;
-    pointer-events: none;
-    opacity: 0.9;
-    background: rgba(255,255,255,0.35); /* Keep white for general ripple */
+    animation: spin 1s linear infinite;
 }
 
-@keyframes rippleAnim {
-    to { transform: scale(4); opacity: 0; }
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
-
-/* Ajustes para botones pequeños (nav icons) */
-.nav-btn { border-radius: 50%; padding: 8px; }

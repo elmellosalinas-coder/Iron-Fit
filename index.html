@@ -3,288 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iron fit</title>
+    <title>Wayuu Store — Artesanías del Alma</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-     <!-- Vinculamos el script externo para que la lógica de los 40 stickers funcione -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="script.js" defer></script>
 </head>
 <body>
 
+    <!-- FONDO CON STICKERS -->
     <div class="parallax-bg">
-        <div class="floating-stickers-container" id="stickersContainer">
-            <!-- El JavaScript generará los 40 stickers aquí automáticamente -->
-        </div>
+        <div class="floating-stickers-container" id="stickersContainer"></div>
     </div>
 
-    <div class="canvas-container animate-fade-in">
-        
-        <header class="top-bar">
-            <div class="glass-nav">
-                <button class="nav-btn" id="loginBtn" title="perfil / acceso">
-                    <i class="fa-regular fa-user"></i>
-                </button>
-                <button class="buy-btn cart-active" id="openShopBtn" title="ir al carrito"><i class="fa-solid fa-cart-shopping"></i> ir al carrito</button>
-                <ul class="menu-links" id="menuLinks">
-                    <li><a href="#" id="linkInicio"><i class="fa-solid fa-house"></i> inicio</a></li>
-                    <li><a href="#" id="linkProductos"><i class="fa-solid fa-shirt"></i> productos</a></li>
-                    <li><a href="#" id="linkTecnologia"><i class="fa-solid fa-bolt"></i> tecnología</a></li>
-                    <li><a href="#" id="linkContacto"><i class="fa-solid fa-envelope"></i> contacto</a></li>
-                </ul>
-                <button class="nav-btn" id="menuBtn" title="menú">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
-        </header>
+    <!-- BARRA SUPERIOR (Movida fuera para que sea independiente del contenido) -->
+    <header class="top-bar animate-fade-in">
 
+        <!-- LOGO CRISTAL WAYUU -->
+        <div class="logo-cristal-container">
+            <svg class="wayuu-triangle-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="glassShine" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2" result="blur"/>
+                        <feSpecularLighting surfaceScale="5" specularConstant="1" specularExponent="20" lighting-color="#ffffff" in="blur" result="specular">
+                            <fePointLight x="-50" y="-100" z="200" />
+                        </feSpecularLighting>
+                        <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+                    </filter>
+                    <linearGradient id="gradRed" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FF2600" stop-opacity="0.8" />
+                        <stop offset="100%" stop-color="#8B0000" stop-opacity="0.4" />
+                    </linearGradient>
+                    <linearGradient id="gradOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FF6B35" stop-opacity="0.8" />
+                        <stop offset="100%" stop-color="#CC4400" stop-opacity="0.4" />
+                    </linearGradient>
+                    <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00d4c8" stop-opacity="0.8" />
+                        <stop offset="100%" stop-color="#005566" stop-opacity="0.4" />
+                    </linearGradient>
+                </defs>
+                <g filter="url(#glassShine)">
+                    <!-- Nueva forma: Lazos de cristal entrelazados (abstracto) -->
+                    <!-- Lazo Rojo (base) -->
+                    <path d="M25 50 C35 20, 65 20, 75 50 C65 80, 35 80, 25 50 Z" fill="none" stroke="url(#gradRed)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" />
+                    <!-- Lazo Naranja (entrelazado) -->
+                    <path d="M50 15 C20 35, 80 65, 50 85" fill="none" stroke="url(#gradOrange)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+                    <!-- Lazo Azul (entrelazado) -->
+                    <path d="M50 85 C80 65, 20 35, 50 15" fill="none" stroke="url(#gradBlue)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+
+                    <!-- Detalles de brillo interno para el efecto de vidrio -->
+                    <path d="M30 45 L70 55" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.3" />
+                    <path d="M45 30 L55 70" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.3" />
+                </g>
+            </svg>
+        </div>
+
+        <!-- NAV DERECHA -->
+        <div class="glass-nav">
+            <button class="nav-btn" id="loginBtn" title="perfil / acceso">
+                <i class="fa-regular fa-user"></i>
+            </button>
+            <button class="buy-btn" id="openShopBtn" title="abrir tienda">comprar ahora</button>
+            <ul class="menu-links" id="menuLinks">
+                <li><a href="#" id="linkProductos"><i class="fa-solid fa-bag-shopping"></i> productos</a></li>
+                <li><a href="#" id="linkTecnologia"><i class="fa-solid fa-palette"></i> colección</a></li>
+                <li><a href="#" id="linkContacto"><i class="fa-solid fa-envelope"></i> contacto</a></li>
+            </ul>
+            <button class="nav-btn" id="menuBtn" title="menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="canvas-container animate-fade-in">
+
+        <!-- ÁREA PRINCIPAL: 2 FILAS DE PRODUCTOS -->
         <main class="main-content">
-            <!-- Productos visibles directamente en el main -->
             <div class="products-grid" id="productsGrid" aria-hidden="true">
-                <!-- Las tarjetas de producto se muestran aquí cuando el usuario activa 'comprar ahora' -->
+                <!-- Aquí carga script.js los productos. El HTML base del shop se mueve aquí -->
+            </div>
+            <!-- ÁREA DE CARGA Y FINAL -->
+            <div class="products-footer-actions">
+                <div id="loader" class="loader hidden-info">
+                    <div class="spinner"></div>
+                </div>
+                <button id="showMoreBtn" class="show-more-btn">
+                    <i class="fa-solid fa-plus"></i> mostrar más productos
+                </button>
+                <div id="endOfProducts" class="end-of-products hidden-info">
+                    <div class="end-divider"></div>
+                    <p><i class="fa-solid fa-leaf"></i> has llegado al final de nuestra colección artesanal</p>
+                </div>
+
+                <!-- FOOTER TRANSPARENTE DE LA TIENDA -->
+                <footer class="glass-footer">
+                    <div class="footer-sections">
+                        <div class="footer-col">
+                            <h4>ayuda</h4>
+                            <a href="#">preguntas frecuentes</a>
+                            <a href="#">envíos y seguimiento</a>
+                            <a href="#">guía de cuidados</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>nosotros</h4>
+                            <a href="#">historia artesanal</a>
+                            <a href="#">impacto social</a>
+                            <a href="#">contacto</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2026 wayuu store — artesanías del alma. todos los derechos reservados.</p>
+                    </div>
+                </footer>
             </div>
         </main>
 
+        <!-- SHOP OVERLAY (panel extra) -->
         <section class="shop-overlay" id="shopOverlay">
             <div class="shop-container">
                 <div class="shop-header">
-                    <h2><i class="fa-solid fa-bag-shopping"></i> tienda virtual</h2>
+                    <h2><i class="fa-solid fa-bag-shopping"></i> tienda wayuu</h2>
                     <button class="close-shop" id="closeShopBtn">&times;</button>
                 </div>
                 <div class="shop-grid">
                     <div class="product-card">
-                        <div class="product-badge">premium</div>
+                        <div class="product-badge badge-premium">premium</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=300&h=300&fit=crop" alt="Smart Sweater v1" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=300&h=300&fit=crop" alt="Mochila Wayuu" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>smart sweater v1</h3>
-                        <p class="small-desc">buzo inteligente con carga inalámbrica integrada.</p>
-                        <div class="quantity-selector">
-                            <label>cantidad:</label>
-                            <input type="number" value="1" min="1" max="99">
-                        </div>
+                        <h3>mochila tejida luna</h3>
+                        <p>tejida a mano por artesanas Wayuu del norte de la Guajira.</p>
+                        <div class="quantity-selector"><label>cantidad:</label><input type="number" value="1" min="1" max="99"></div>
                         <div class="product-footer">
                             <span class="price">$149.99</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">premium</div>
+                        <div class="product-badge badge-premium">premium</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1516724562728-afc824a36e84?q=80&w=300&h=300&fit=crop" alt="Smart Sweater v2" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=300&h=300&fit=crop" alt="Chinchorro" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>smart sweater v2</h3>
-                        <p>versión mejorada con tecnología de temperatura adaptativa y control por app.</p>
-                        <div class="quantity-selector">
-                            <label>cantidad:</label>
-                            <input type="number" value="1" min="1">
-                        </div>
+                        <h3>chinchorro doble arco iris</h3>
+                        <p>hamaca bicolor en algodón puro, dos plazas, con flecos decorativos.</p>
+                        <div class="quantity-selector"><label>cantidad:</label><input type="number" value="1" min="1"></div>
                         <div class="product-footer">
-                            <span class="price">$179.99</span>
+                            <span class="price">$259.99</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">nuevo</div>
+                        <div class="product-badge badge-nuevo">nuevo</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=300&h=300&fit=crop" alt="Smart Zapatillas Pro" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=300&h=300&fit=crop" alt="Mini bag wayuu" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>smart zapatillas pro</h3>
-                        <p>zapatillas con sensor de pasos, GPS integrado y análisis de rendimiento.</p>
-                        <div class="quantity-selector">
-                            <label>cantidad:</label>
-                            <input type="number" value="1" min="1">
-                        </div>
+                        <h3>mini wayuu bag festival</h3>
+                        <p>bolsito compacto para festivales y uso diario. hecho a mano.</p>
+                        <div class="quantity-selector"><label>cantidad:</label><input type="number" value="1" min="1"></div>
                         <div class="product-footer">
-                            <span class="price">$199.99</span>
+                            <span class="price">$69.99</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">oferta</div>
+                        <div class="product-badge badge-oferta">oferta</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=300&h=300&fit=crop" alt="Smartwatch Elite" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=300&h=300&fit=crop" alt="Bolso redondo" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>smartwatch elite</h3>
-                        <p>reloj inteligente con monitoreo de salud 24/7 y batería de 7 días.</p>
-                        <div class="quantity-selector">
-                            <label>cantidad:</label>
-                            <input type="number" value="1" min="1">
-                        </div>
+                        <h3>bolso redondo wayuu</h3>
+                        <p>diseño circular artesanal con macramé y asas de cuero.</p>
+                        <div class="quantity-selector"><label>cantidad:</label><input type="number" value="1" min="1"></div>
                         <div class="product-footer">
-                            <span class="price">$249.99</span>
+                            <span class="price">$79.00</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">premium</div>
+                        <div class="product-badge badge-premium">premium</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=300&h=300&fit=crop" alt="Athletic Tank Top" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=300&h=300&fit=crop" alt="Mochila tribal" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>athletic tank top</h3>
-                        <p>camiseta deportiva inteligente con regulación térmica y transpirabilidad.</p>
-                        <div class="quantity-selector">
-                            <label>cantidad:</label>
-                            <input type="number" value="1" min="1">
-                        </div>
+                        <h3>mochila tribal exclusiva</h3>
+                        <p>patrón tribal de la familia Epiayu. Ejemplar numerado.</p>
                         <div class="product-footer">
-                            <span class="price">$89.99</span>
+                            <span class="price">$189.99</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">nuevo</div>
+                        <div class="product-badge badge-nuevo">nuevo</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=300&h=300&fit=crop" alt="Gorra Fitness" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=300&h=300&fit=crop" alt="Chinchorro bebé" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>smart gorra fitness</h3>
-                        <p>gorra con sensor de frecuencia cardíaca y conexión bluetooth.</p>
-                        <div class="product-footer">
-                            <span class="price">$79.99</span>
-                            <button class="add-to-cart">añadir</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-badge">premium</div>
-                        <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=300&h=300&fit=crop" alt="Pantalón Inteligente" loading="lazy" decoding="async" width="300" height="300">
-                        </div>
-                        <h3>pantalón inteligente</h3>
-                        <p>pantalón deportivo con bolsillos inteligentes y carga inalámbrica integrada.</p>
-                        <div class="product-footer">
-                            <span class="price">$159.99</span>
-                            <button class="add-to-cart">añadir</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-badge">oferta</div>
-                        <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1571945153237-4929e783ee4a?q=80&w=300&h=300&fit=crop" alt="Pack Básico" loading="lazy" decoding="async" width="300" height="300">
-                        </div>
-                        <h3>pack básico 3 prendas</h3>
-                        <p>combo de 3 prendas inteligentes con descuento especial.</p>
-                        <div class="product-footer">
-                            <span class="price">$349.99</span>
-                            <button class="add-to-cart">añadir</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-badge">premium</div>
-                        <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=300&h=300&fit=crop" alt="Chaqueta Tech" loading="lazy" decoding="async" width="300" height="300">
-                        </div>
-                        <h3>tech shell jacket</h3>
-                        <p>chaqueta impermeable con fibras de carbono y paneles solares flexibles.</p>
-                        <div class="product-footer">
-                            <span class="price">$289.99</span>
-                            <button class="add-to-cart">añadir</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-badge">oferta</div>
-                        <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=300&h=300&fit=crop" alt="Headphones Bio" loading="lazy" decoding="async" width="300" height="300">
-                        </div>
-                        <h3>bio-haptic headphones</h3>
-                        <p>audífonos que sincronizan el ritmo cardíaco con la música ambiental.</p>
-                        <div class="product-footer">
-                            <span class="price">$120.00</span>
-                            <button class="add-to-cart">añadir</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-badge">nuevo</div>
-                        <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=300&h=300&fit=crop" alt="Smart T-Shirt" loading="lazy" decoding="async" width="300" height="300">
-                        </div>
-                        <h3>electro-weave t-shirt</h3>
-                        <p>camiseta con sensores musculares para optimizar tu entrenamiento en tiempo real.</p>
+                        <h3>chinchorro bebé suave</h3>
+                        <p>hamaca infantil tejida con hilos orgánicos sin tóxicos.</p>
                         <div class="product-footer">
                             <span class="price">$95.00</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">premium</div>
+                        <div class="product-badge badge-oferta">oferta</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1584000000000-000000000000?q=80&w=300&h=300&fit=crop" alt="Pantalones Yoga Smart" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=300&h=300&fit=crop" alt="Kit viajero" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>yoga smart leggings</h3>
-                        <p>pantalones con guía de postura mediante micro-vibraciones hápticas.</p>
+                        <h3>kit wayuu viajero</h3>
+                        <p>set de 3: mochila + mini bag + pulsera artesanal. regalo ideal.</p>
                         <div class="product-footer">
-                            <span class="price">$115.00</span>
+                            <span class="price">$199.00</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">nuevo</div>
+                        <div class="product-badge badge-premium">premium</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=300&h=300&fit=crop" alt="Smart Hat" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=300&h=300&fit=crop" alt="Joyería wayuu" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>neuro-link beanie</h3>
-                        <p>gorro inteligente que monitorea ondas alfa para mejorar la concentración.</p>
+                        <h3>joyería wayuu colección</h3>
+                        <p>aretes, pulseras y collares en cuentas de vidrio Wayuu. Set de 5 piezas.</p>
                         <div class="product-footer">
                             <span class="price">$65.00</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">premium</div>
+                        <div class="product-badge badge-nuevo">nuevo</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=300&h=300&fit=crop" alt="Suit Smart" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?q=80&w=300&h=300&fit=crop" alt="Chinchorro familiar" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>executive nano-suit</h3>
-                        <p>traje ejecutivo con tecnología anti-manchas y climatización interna.</p>
+                        <h3>chinchorro familiar xl</h3>
+                        <p>para 3 personas, algodón extragrueso con refuerzo en los extremos.</p>
                         <div class="product-footer">
-                            <span class="price">$850.00</span>
+                            <span class="price">$320.00</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
                     <div class="product-card">
-                        <div class="product-badge">oferta</div>
+                        <div class="product-badge badge-oferta">oferta</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=300&h=300&fit=crop" alt="Tech Shoes" loading="lazy" decoding="async" width="300" height="300">
+                            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?q=80&w=300&h=300&fit=crop" alt="Mochila noche" loading="lazy" decoding="async" width="300" height="300">
+                            <div class="img-glass-shine"></div>
                         </div>
-                        <h3>gravity sneakers</h3>
-                        <p>calzado con amortiguación magnética para reducir el impacto en articulaciones.</p>
+                        <h3>mochila noche dorada</h3>
+                        <p>edición nocturna en hilo oscuro con detalles dorados. Solo 20 uds.</p>
                         <div class="product-footer">
-                            <span class="price">$210.00</span>
-                            <button class="add-to-cart">añadir</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-badge">nuevo</div>
-                        <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=300&h=300&fit=crop" alt="Performance Shorts" loading="lazy" decoding="async" width="300" height="300">
-                        </div>
-                        <h3>kinetic power shorts</h3>
-                        <p>shorts que recuperan energía de tu movimiento para cargar dispositivos.</p>
-                        <div class="product-footer">
-                            <span class="price">$75.00</span>
-                            <button class="add-to-cart">añadir</button>
-                        </div>
-                    </div>
-                    <!-- Añadiendo más productos para probar el scroll -->
-                    <div class="product-card">
-                        <div class="product-badge">oferta</div>
-                        <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=300&h=300&fit=crop" alt="Smart Shirt" loading="lazy" decoding="async" width="300" height="300">
-                        </div>
-                        <h3>compression smart shirt</h3>
-                        <p>camiseta de compresión con fibras sensoras de fatiga muscular.</p>
-                        <div class="product-footer">
-                            <span class="price">$110.00</span>
-                            <button class="add-to-cart">añadir</button>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-badge">premium</div>
-                        <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1620138546344-7b2c0b051ed3?q=80&w=300&h=300&fit=crop" alt="Smart Glasses" loading="lazy" decoding="async" width="300" height="300">
-                        </div>
-                        <h3>iron vision glasses</h3>
-                        <p>lentes de realidad aumentada para ver métricas de ejercicio en tiempo real.</p>
-                        <div class="product-footer">
-                            <span class="price">$450.00</span>
+                            <span class="price">$159.00</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
@@ -292,6 +265,7 @@
             </div>
         </section>
 
+        <!-- LOGIN -->
         <div class="login-overlay" id="loginOverlay">
             <div class="login-card">
                 <button class="close-login" id="closeLoginBtn">&times;</button>
@@ -303,111 +277,105 @@
                 </form>
                 <div class="social-login-divider">o regístrate con</div>
                 <div class="social-login-container">
-                    <button class="social-btn phone" title="Registrar con Celular"><i class="fa-solid fa-mobile-screen"></i></button>
-                    <button class="social-btn google" title="Registrar con Google">
-                        <svg viewBox="0 0 48 48" width="20" height="20"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C40.483,35.58,44,30.357,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg>
+                    <button class="social-btn phone" title="Celular"><i class="fa-solid fa-mobile-screen"></i></button>
+                    <button class="social-btn google" title="Google">
+                        <svg viewBox="0 0 48 48" width="20" height="20"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C40.483,35.58,44,30.357,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
                     </button>
-                    <button class="social-btn facebook" title="Registrar con Facebook"><i class="fa-brands fa-facebook-f"></i></button>
+                    <button class="social-btn facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></button>
                 </div>
             </div>
         </div>
 
-        <!-- Carrito de compras / Sesión de compra -->
-        <div class="cart-overlay" id="cartOverlay">
-            <div class="cart-modal">
-                <div class="cart-header">
-                    <h3><i class="fa-solid fa-cart-shopping"></i> mi carrito</h3>
-                    <button id="closeCartBtn">&times;</button>
-                </div>
-                <div class="cart-items" id="cartItemsList">
-                    <p class="empty-msg">tu carrito está vacío</p>
-                </div>
-                <div class="cart-footer">
-                    <div class="total-row"><span>total:</span> <span id="cartTotal">$0.00</span></div>
-                    <button class="checkout-btn" id="finishPurchaseBtn">finalizar compra</button>
-                </div>
+    </div><!-- fin canvas-container -->
+
+    <!-- CAPAS DE INTERFAZ (Movidas fuera para que el centrado sea perfecto en pantalla) -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-modal">
+            <div class="cart-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> mi carrito</h3>
+                <button id="closeCartBtn">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItemsList">
+                <p class="empty-msg">tu carrito está vacío</p>
+            </div>
+            <div class="cart-footer">
+                <div class="total-row"><span>total:</span> <span id="cartTotal">$0.00</span></div>
+                <button class="checkout-btn" id="finishPurchaseBtn">finalizar compra</button>
             </div>
         </div>
-
-        <div class="ai-assistant-container">
-            <div class="ai-chat-window" id="aiChatWindow">
-                <div class="ai-chat-header">
-                    <span><i class="fa-solid fa-robot"></i> asistente ia</span>
-                    <button id="minimizeChat">&times;</button>
-                </div>
-                <div class="ai-chat-body">
-                    <div class="ai-msg">hola, ¿en qué te puedo colaborar hoy con tu prenda inteligente o tu compra?</div>
-                </div>
-                <div class="ai-chat-footer">
-                    <input type="text" id="aiInput" placeholder="escribe tu duda aquí...">
-                    <button id="aiSendBtn"><i class="fa-solid fa-paper-plane"></i></button>
-                </div>
-            </div>
-            <button class="ai-toggle-btn" id="aiToggleBtn" title="asistente de ayuda">
-                <i class="fa-solid fa-comment-dots"></i>
-            </button>
-        </div>
-
-        <!-- Overlay de Contacto -->
-        <div class="contact-overlay-full" id="contactOverlayFull">
-            <div class="contact-content">
-                <span class="phone-number">3202955489</span>
-            </div>
-        </div>
-
     </div>
 
+    <div class="ai-assistant-container">
+        <div class="ai-chat-window" id="aiChatWindow">
+            <div class="ai-chat-header">
+                <span><i class="fa-solid fa-robot"></i> asistente wayuu</span>
+                <button id="minimizeChat">&times;</button>
+            </div>
+            <div class="ai-chat-body">
+                <div class="ai-msg">¡Hola! Soy tu asistente Wayuu. ¿Buscas una mochila, chinchorro o algo especial?</div>
+            </div>
+            <div class="ai-chat-footer">
+                <input type="text" id="aiInput" placeholder="¿qué buscas hoy?">
+                <button id="aiSendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="ai-toggle-btn" id="aiToggleBtn" title="asistente">
+            <i class="fa-solid fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <div class="contact-overlay-full" id="contactOverlayFull">
+        <div class="contact-content">
+            <span class="phone-number">3202955489</span>
+        </div>
+    </div>
+
+    <!-- LÓGICA DE INTERACCIÓN -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-        const menuBtn = document.getElementById('menuBtn');
-        const glassNav = document.querySelector('.glass-nav');
-        const openShopBtn = document.getElementById('openShopBtn');
-        const shopOverlay = document.getElementById('shopOverlay');
-        const loginBtn = document.getElementById('loginBtn');
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuBtn       = document.getElementById('menuBtn');
+        const glassNav      = document.querySelector('.glass-nav');
+        const openShopBtn   = document.getElementById('openShopBtn');
+        const shopOverlay   = document.getElementById('shopOverlay');
+        const loginBtn      = document.getElementById('loginBtn');
         const closeLoginBtn = document.getElementById('closeLoginBtn');
-        const loginOverlay = document.getElementById('loginOverlay');
-        const aiToggleBtn = document.getElementById('aiToggleBtn');
-        const aiChatWindow = document.getElementById('aiChatWindow');
-        const minimizeChat = document.getElementById('minimizeChat');
-        const productsGrid = document.getElementById('productsGrid');
-        const shopGrid = document.querySelector('.shop-grid');
-        const cartOverlay = document.getElementById('cartOverlay');
-        const closeCartBtn = document.getElementById('closeCartBtn');
+        const loginOverlay  = document.getElementById('loginOverlay');
+        const aiToggleBtn   = document.getElementById('aiToggleBtn');
+        const aiChatWindow  = document.getElementById('aiChatWindow');
+        const minimizeChat  = document.getElementById('minimizeChat');
+        const productsGrid  = document.getElementById('productsGrid');
+        const shopGrid      = document.querySelector('.shop-grid');
+        const cartOverlay   = document.getElementById('cartOverlay');
+        const closeCartBtn  = document.getElementById('closeCartBtn');
         const contactOverlayFull = document.getElementById('contactOverlayFull');
         const cartItemsList = document.getElementById('cartItemsList');
-        const cartTotal = document.getElementById('cartTotal');
-        const container = document.querySelector('.canvas-container');
+        const cartTotal     = document.getElementById('cartTotal');
+        const container     = document.querySelector('.canvas-container');
 
-        document.addEventListener('click', (event) => {
-            if (!glassNav || !glassNav.classList.contains('menu-active')) return;
-            if (event.target.closest('.glass-nav')) return;
+        let isLoggedIn = false; // Estado global de sesión
+
+        // Menú expandible
+        menuBtn.addEventListener('click', () => {
+            glassNav.classList.toggle('menu-active');
+        });
+        document.addEventListener('click', (e) => {
+            if (!glassNav.classList.contains('menu-active')) return;
+            if (e.target.closest('.glass-nav')) return;
             glassNav.classList.remove('menu-active');
         });
 
-        // Mover contenido del shop-overlay a productsGrid
-        if (shopGrid && productsGrid) {
-            // Usamos insertAdjacentHTML para NO borrar lo que script.js pueda haber añadido
-            productsGrid.insertAdjacentHTML('beforeend', shopGrid.innerHTML);
-            shopGrid.innerHTML = '';
-        }
-
-        // Iniciamos la tienda automáticamente después de un breve delay para que los productos de script.js carguen
-        setTimeout(() => toggleShop(true), 200);
-
         let cart = [];
 
-        function toggleShop(show, filterTech = false) {
-            const container = document.querySelector('.canvas-container');
+        function toggleShop(show, filterKey = null) {
             const nav = document.querySelector('.glass-nav');
-            if (!container || !productsGrid || !nav) return;
-
-            // Ajuste de capas para que la tienda no bloquee el menú
             nav.style.zIndex = show ? "150" : "10";
             container.style.zIndex = show ? "50" : "1";
+            const footerActions = document.querySelector('.products-footer-actions');
 
             if (show) {
                 container.classList.add('shop-active');
                 productsGrid.classList.add('active');
+                if (footerActions) footerActions.classList.add('active');
                 openShopBtn.classList.add('cart-active');
                 openShopBtn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i> ir al carrito';
                 productsGrid.setAttribute('aria-hidden', 'false');
@@ -416,6 +384,7 @@
                 container.style.zIndex = "1";
                 container.classList.remove('shop-active');
                 productsGrid.classList.remove('active');
+                if (footerActions) footerActions.classList.remove('active');
                 openShopBtn.classList.remove('cart-active');
                 openShopBtn.innerHTML = 'comprar ahora';
                 productsGrid.setAttribute('aria-hidden', 'true');
@@ -426,22 +395,19 @@
 
             const cards = productsGrid.querySelectorAll('.product-card');
             let visibleCount = 0;
-
             cards.forEach((card) => {
                 let isVisible = true;
-                if (filterTech) {
+                if (filterKey) {
                     const name = (card.querySelector('h3').textContent || "").toLowerCase();
-                    isVisible = name.includes('v2') || name.includes('elite'); // Separa tecnología
+                    isVisible = name.includes(filterKey);
                 }
-
                 if (isVisible) {
                     card.classList.remove('hidden-product');
-                    // 2. Aplicar efectos solo a los visibles
                     if (show) {
                         card.style.animation = 'none';
                         void card.offsetWidth;
                         card.style.animation = '';
-                        card.style.animationDelay = (visibleCount * 70) + 'ms';
+                        card.style.animationDelay = (visibleCount * 60) + 'ms';
                         visibleCount++;
                     }
                 } else {
@@ -450,71 +416,36 @@
             });
         }
 
-        document.getElementById('linkInicio').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleShop(false); 
-            if (glassNav) glassNav.classList.remove('menu-active');
-            
-            // Cerrar todos los estados
-            if (contactOverlayFull) contactOverlayFull.classList.remove('active');
-            loginOverlay.classList.remove('active');
-            container.classList.remove('login-mode');
-            aiChatWindow.classList.remove('active');
-            if (cartOverlay) cartOverlay.classList.remove('active');
-            
-            // Reiniciar animaciones de forma segura para el navegador si es necesario
-            const canv = document.querySelector('.canvas-container');
-            
-            const elements = [];
-            if(canv) elements.push(canv);
-
-            elements.forEach(el => {
-                el.style.animation = 'none';
-                void el.offsetWidth; // Forzar reflujo para que el navegador reinicie el ciclo de animación
-                el.style.animation = '';
-            });
-        });
-
         document.getElementById('linkProductos').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleShop(true, false);
-            if (glassNav) glassNav.classList.remove('menu-active');
-            // Cerrar login si está abierto
+            e.preventDefault(); e.stopPropagation();
+            toggleShop(true, null);
+            glassNav.classList.remove('menu-active');
             loginOverlay.classList.remove('active');
             container.classList.remove('login-mode');
-            // Cerrar chat IA
             aiChatWindow.classList.remove('active');
         });
 
         document.getElementById('linkTecnologia').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleShop(true, true);
-            if (glassNav) glassNav.classList.remove('menu-active');
-            // Cerrar login si está abierto
+            e.preventDefault(); e.stopPropagation();
+            toggleShop(true, 'chinchorro');
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) mainContent.scrollTop = 0;
+            glassNav.classList.remove('menu-active');
             loginOverlay.classList.remove('active');
             container.classList.remove('login-mode');
-            // Cerrar chat IA
             aiChatWindow.classList.remove('active');
         });
 
         document.getElementById('linkContacto').addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            contactOverlayFull.classList.add('active'); // Mostrar número
-            if (glassNav) glassNav.classList.remove('menu-active');
-            // Cerrar login si está abierto
+            e.preventDefault(); e.stopPropagation();
+            contactOverlayFull.classList.add('active');
+            glassNav.classList.remove('menu-active');
             loginOverlay.classList.remove('active');
             container.classList.remove('login-mode');
-            // Cerrar chat IA
             aiChatWindow.classList.remove('active');
         });
 
-        contactOverlayFull.addEventListener('click', () => {
-            contactOverlayFull.classList.remove('active');
-        });
+        contactOverlayFull.addEventListener('click', () => contactOverlayFull.classList.remove('active'));
 
         openShopBtn.addEventListener('click', () => {
             if (openShopBtn.classList.contains('cart-active')) {
@@ -531,28 +462,36 @@
         productsGrid.addEventListener('click', (e) => {
             if (e.target.classList.contains('add-to-cart')) {
                 const card = e.target.closest('.product-card');
-                const name = card.querySelector('h3').textContent;
-                const price = parseFloat(card.querySelector('.price').textContent.replace('$', ''));
-                
-                cart.push({ name, price });
-                
-                // Feedback visual en el botón
-                const originalText = e.target.textContent;
+                const name  = card.querySelector('h3').textContent;
+                const price = parseFloat(card.querySelector('.price').textContent.replace('$',''));
+                const quantityInput = card.querySelector('.quantity-selector input');
+                const quantity = parseInt(quantityInput.value) || 1;
+
+                // Si el producto ya está en el carrito, sumamos la cantidad, si no, lo añadimos
+                const existingItem = cart.find(item => item.name === name);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({ name, price, quantity });
+                }
+
+                const orig = e.target.textContent;
                 e.target.textContent = '¡añadido!';
                 e.target.style.background = '#00ff66';
+                e.target.style.color = '#003311';
                 setTimeout(() => {
-                    e.target.textContent = originalText;
+                    e.target.textContent = orig;
                     e.target.style.background = '';
+                    e.target.style.color = '';
                 }, 1000);
             }
         });
 
-        // Lógica para aleatorizar la dirección del destello en los productos
+        // Paralaje de destello en las cards
         productsGrid.addEventListener('mouseover', (e) => {
             const card = e.target.closest('.product-card');
             if (card && !card.style.getPropertyValue('--glint-angle')) {
-                const randomAngle = Math.floor(Math.random() * 360) + 'deg';
-                card.style.setProperty('--glint-angle', randomAngle);
+                card.style.setProperty('--glint-angle', Math.floor(Math.random()*360) + 'deg');
             }
         }, true);
 
@@ -563,45 +502,48 @@
                 cartTotal.textContent = '$0.00';
                 return;
             }
-            
             let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
+            cart.forEach((item) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
                 const div = document.createElement('div');
                 div.className = 'cart-item';
-                div.innerHTML = `<span>${item.name}</span><span>$${item.price}</span>`;
+                div.innerHTML = `<span>${item.name} (x${item.quantity})</span><span>$${subtotal.toFixed(2)}</span>`;
                 cartItemsList.appendChild(div);
             });
             cartTotal.textContent = `$${total.toFixed(2)}`;
         }
 
         document.getElementById('finishPurchaseBtn').addEventListener('click', () => {
+            // Solo aquí validamos la sesión
+            if (!isLoggedIn) {
+                cartOverlay.classList.remove('active'); // Cerramos carrito para ver el login
+                loginBtn.click();
+                return;
+            }
             if (cart.length > 0) {
-                alert('¡Gracias por tu compra! Procesando tu pedido de Iron Fit...');
+                alert('¡Gracias por tu compra! Procesando tu pedido Wayuu...');
                 cart = [];
                 cartOverlay.classList.remove('active');
             }
         });
 
-        // IA Chat con respuestas básicas
-        const aiInput = document.getElementById('aiInput');
-        const aiSendBtn = document.getElementById('aiSendBtn');
+        // IA Chat
+        const aiInput    = document.getElementById('aiInput');
+        const aiSendBtn  = document.getElementById('aiSendBtn');
         const aiChatBody = document.querySelector('.ai-chat-body');
 
         function sendAiMessage() {
             const text = aiInput.value.toLowerCase().trim();
             if (!text) return;
-
-            // Mensaje usuario
             aiChatBody.innerHTML += `<div class="user-msg">${aiInput.value}</div>`;
             aiInput.value = '';
-
-            // Lógica de respuesta sencilla
-            let response = "Lo siento, no entiendo esa duda. Intenta con 'sin internet' o 'no prende'.";
-            if (text.includes('internet')) response = "Si no tienes internet, por favor conecta el cable de red o revisa tu router.";
-            if (text.includes('prende') || text.includes('funciona')) response = "Verifica que la batería esté cargada o el cable de alimentación bien puesto.";
-            if (text.includes('hola')) response = "¡Hola! Soy tu asistente Iron Fit. ¿Tienes problemas con tu equipo?";
-
+            let response = "Para más información escríbenos al WhatsApp o llámanos al 3202955489.";
+            if (text.includes('mochila')) response = "Tenemos mochilas desde $55. Todas tejidas a mano por artesanas Wayuu. ¡Ve a Productos para verlas!";
+            if (text.includes('chinchorro') || text.includes('hamaca')) response = "Nuestros chinchorros van desde $89 hasta $320. Algodón puro, sin químicos. ¡Los mejores del Caribe!";
+            if (text.includes('hola') || text.includes('buenas')) response = "¡Bienvenido a Wayuu Store! ¿Buscas mochilas, chinchorros o bolsos artesanales?";
+            if (text.includes('precio') || text.includes('costo')) response = "Nuestros precios van desde $55 hasta $320. Haz clic en 'comprar ahora' para ver todos.";
+            if (text.includes('envío') || text.includes('envio') || text.includes('domicilio')) response = "Hacemos envíos a todo Colombia. Envío gratis en compras mayores a $150.";
             setTimeout(() => {
                 aiChatBody.innerHTML += `<div class="ai-msg">${response}</div>`;
                 aiChatBody.scrollTop = aiChatBody.scrollHeight;
@@ -609,46 +551,66 @@
         }
 
         aiSendBtn.addEventListener('click', sendAiMessage);
-        aiInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendAiMessage(); });
+        aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendAiMessage(); });
 
-        // cerrar overlay ya no es necesario, pero si existe botón lo ocultamos
+        aiToggleBtn.addEventListener('click', () => aiChatWindow.classList.toggle('active'));
+        minimizeChat.addEventListener('click', () => aiChatWindow.classList.remove('active'));
+
         if (closeShopBtn) closeShopBtn.style.display = 'none';
 
-        // login
+        // Mostrar productos inmediatamente al cargar
+        toggleShop(true);
+
         loginBtn.addEventListener('click', () => {
             glassNav.classList.remove('menu-active');
-            
-            // Desactivar la tienda si está abierta para limpiar el layout antes de encoger
-            toggleShop(false);
-            
+            toggleShop(false); // Ocultamos productos para que el login tenga su propio espacio
+            document.body.classList.add('login-mode');
             container.classList.add('login-mode');
             loginOverlay.classList.add('active');
         });
 
         const closeLogin = () => {
+            document.body.classList.remove('login-mode');
             container.classList.remove('login-mode');
             loginOverlay.classList.remove('active');
+            toggleShop(true);
         };
-
         closeLoginBtn.addEventListener('click', closeLogin);
-        
-        loginOverlay.addEventListener('click', (e) => {
-            if (e.target === loginOverlay) closeLogin();
+        loginOverlay.addEventListener('click', (e) => { if (e.target === loginOverlay) closeLogin(); });
+
+        // Manejar el éxito del inicio de sesión
+        const loginForm = document.querySelector('.login-form');
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            isLoggedIn = true;
+            closeLogin();
+        });
+
+        // Ripple effect en botones
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                ripple.style.top  = (e.clientY - rect.top  - size/2) + 'px';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 700);
+            });
         });
     });
     </script>
 
+    <!-- PARALAJE DE STICKERS -->
     <script>
-        // --- MOVIMIENTO PARALAJE ---
-        let mouseX = 0, mouseY = 0;
-        let ticking = false;
-
+        let mouseX = 0, mouseY = 0, ticking = false;
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            mouseX = e.clientX; mouseY = e.clientY;
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    const layers = document.querySelectorAll('.sticker-3d');
+                    const layers  = document.querySelectorAll('.sticker-3d');
                     const centerX = window.innerWidth / 2;
                     const centerY = window.innerHeight / 2;
                     layers.forEach(layer => {
@@ -663,5 +625,6 @@
             }
         });
     </script>
+
 </body>
 </html>
