@@ -1,126 +1,308 @@
 /* configuraciones globales y reseteo */
+:root {
+    --primary-wayuu: #2A0000;
+    --accent-red: #FF2600;
+    --accent-green: #00ff66;
+    --accent-gold: #ffd700;
+    --glass-border: rgba(255, 255, 255, 0.3);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    user-select: none;
 }
 
 body {
-    background: linear-gradient(135deg, #020617 0%, #075985 50%, #7dd3fc 100%);
+    /* Fondo Claro y Profesional para resaltar colores fuertes */
+    background: radial-gradient(circle at top left, #f8fafc, #e2e8f0, #cbd5e1);
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     overflow: hidden;
-}
-
-/* lienzo contenedor que replica el marco de la imagen original */
-.canvas-container {
     position: relative;
-    width: 99vw;
-    max-width: 100%;
-    height: 99vh;
-    max-height: 1050px; /* Aumentado para un cuadro principal más grande */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(14, 165, 233, 0.15) 100%);
-    backdrop-filter: blur(45px) saturate(160%);
-    -webkit-backdrop-filter: blur(45px) saturate(160%);
-    border-radius: 40px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 40px;
-    overflow: hidden;
-    border: 1px solid rgba(125, 211, 252, 0.3);
 }
 
-/* barra superior */
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMikiLz48L3N2Zz4=');
+    pointer-events: none;
+    z-index: -1;
+    backdrop-filter: blur(0.5px);
+}
+
+/* Fondo de figuras con paralaje */
+.parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    z-index: 10;
+    height: 100%;
+    z-index: 1; /* Aumentado para asegurar visibilidad sobre el fondo del body */
+    pointer-events: none;
 }
 
-/* vectores de los logos perfectamente simétricos */
-.mini-logo {
-    width: 52px;
-    height: 52px;
-    color: #1c2541;
-    opacity: 0.9;
+.floating-stickers-container {
+    position: absolute;
+    inset: 0;
+    perspective: 1200px;
+    overflow: hidden;
+}
+
+.sticker-3d {
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+    opacity: 1;
+}
+
+.sticker-icon {
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(5px) saturate(180%);
+    -webkit-backdrop-filter: blur(5px) saturate(180%);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    animation: float-v1 infinite ease-in-out; /* Animación por defecto */
+    animation-duration: inherit;
+    animation-delay: inherit;
 }
 
-.mini-logo:hover {
-    transform: scale(1.08) rotate(-3deg);
-    opacity: 1;
-    color: #000000;
+/* Variaciones de rotación para diferentes direcciones */
+@keyframes float-v1 {
+    0%, 100% { transform: rotateX(0deg) translateY(0) scale(1); }
+    50% { transform: rotateX(25deg) translateY(-20px); }
 }
 
-.svg-logo, .svg-logo-main {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
+@keyframes float-v2 {
+    0%, 100% { transform: rotateY(0deg) translateY(0) scale(1); }
+    50% { transform: rotateY(-25deg) translateY(-25px); }
 }
 
-/* contenedor estilo vidrio (glassmorphism ultra pulido) */
+@keyframes float-v3 {
+    0%, 100% { transform: rotate3d(1, 1, 0, 0deg) translateY(0) scale(1); }
+    50% { transform: rotate3d(1, 1, 0, 20deg) translateY(-15px); }
+}
+
+@keyframes float-v4 {
+    0%, 100% { transform: rotate3d(0, 1, 1, 0deg) translateY(0) scale(1); }
+    50% { transform: rotate3d(0, 1, 1, -20deg) translateY(-20px); }
+}
+
+/* Clases para aplicar las direcciones */
+.dir-v1 { animation-name: float-v1 !important; }
+.dir-v2 { animation-name: float-v2 !important; }
+.dir-v3 { animation-name: float-v3 !important; }
+.dir-v4 { animation-name: float-v4 !important; }
+
+/* Colores vibrantes para los iconos */
+.icon-cart i { color: #00ff66; filter: drop-shadow(0 0 10px #00ff66) saturate(2); }
+.icon-bag i { color: #00d4ff; filter: drop-shadow(0 0 10px #00d4ff) saturate(2); }
+.icon-verified i { color: #ffd700; filter: drop-shadow(0 0 10px #ffd700) saturate(2); }
+.icon-card i { color: #ff2600; filter: drop-shadow(0 0 10px #ff2600) saturate(2); }
+.icon-tag i { color: #ff00ff; filter: drop-shadow(0 0 10px #ff00ff) saturate(2); }
+.icon-box i { color: #00ffcc; filter: drop-shadow(0 0 10px #00ffcc) saturate(2); }
+.icon-truck i { color: #ffa500; filter: drop-shadow(0 0 10px #ffa500) saturate(2); }
+.icon-star i { color: #ffff00; filter: drop-shadow(0 0 10px #ffff00) saturate(2); }
+.icon-coupon i { color: #ff0066; filter: drop-shadow(0 0 10px #ff0066) saturate(2); }
+.icon-wallet i { color: #7b00ff; filter: drop-shadow(0 0 10px #7b00ff) saturate(2); }
+
+.sticker-icon i {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.hero-heading, .piece, .mini-logo, .menu-brand {
+    user-select: none;
+}
+
+/* Estado cuando el login está activo: el cristal se encoge */
+.canvas-container.login-mode {
+    width: 500px;
+    height: 400px;
+    border-radius: 20px;
+    padding: 70px; /* Ajustado para evitar padding excesivo */
+    justify-content: center;
+    align-items: center;
+    /* Sombra de calidad limpia sin brillo */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.2);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+
+
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    top: 10px; /* Más cerca del borde superior */
+    left: 20px; /* Más cerca del borde izquierdo */
+    width: calc(100% - 40px);
+    z-index: 100; /* Prioridad de clic */
+    pointer-events: none; /* Permite que los clics pasen a través del contenedor hacia los productos */
+    transition: opacity 0.4s ease;
+}
+
+.login-mode .top-bar, 
+.login-mode .main-content, 
+.login-mode .ai-assistant-container {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.2s ease-out, visibility 0.2s; /* Desvanecimiento ultra rápido para evitar el 'bug' visual */
+}
+
+/* contenedor estilo vidrio donde estan los botones  */
 .glass-nav {
     display: flex;
     align-items: center;
-    background: rgba(15, 23, 42, 0.3);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 8px 12px;
-    gap: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 25px;
+    padding: 6px 15px;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.3);
+    pointer-events: auto; /* Reactiva los clics solo dentro de la barra de botones */
+    transition: max-width 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+                background 0.4s ease,
+                box-shadow 0.6s ease;
+    max-width: fit-content;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de destello (glint) al expandir el menú */
+.glass-nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    );
+    transform: translateX(-150%) skewX(-25deg);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.glass-nav.menu-active::before {
+    animation: glintMove 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* Borde reactivo que cambia de color según el fondo */
+.glass-nav::after {
+    content: "";
+    position: absolute;
+    inset: -1px; /* Se sitúa exactamente sobre el borde */
+    border-radius: inherit;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    /* El truco para que reaccione al color de abajo */
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: -1;
 }
 
 /* botones iconográficos internos */
 .nav-btn {
     background: transparent;
     border: none;
-    color: #e0f2fe;
-    font-size: 1.2rem;
+    color: var(--primary-wayuu);
+    font-size: 1rem; /* Iconos un poco más pequeños */
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 32px; /* Botones más compactos */
+    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    pointer-events: auto;
     transition: background 0.3s ease, color 0.3s ease;
 }
 
 .nav-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    color: #000000;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--accent-red);
+}
+
+#loginBtn {
+    background: radial-gradient(circle at 30% 30%, #fff4b3 0%, var(--accent-gold) 50%, #b8860b 100%);
+    color: var(--primary-wayuu);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 
+        0 4px 15px rgba(184, 134, 11, 0.5), 
+        inset 0 2px 4px rgba(255, 255, 255, 0.7), 
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#loginBtn:hover {
+    transform: translateY(-2px) scale(1.1);
+    background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--accent-gold) 50%, #daa520 100%);
+    box-shadow: 
+        0 8px 25px rgba(255, 215, 0, 0.6),
+        inset 0 4px 6px rgba(255, 255, 255, 0.8), 
+        inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+    color: #000;
 }
 
 /* botón de compra llamativo (verde fosforescente) */
 .buy-btn {
-    background: #DFFF00;
-    border: none;
-    color: #00110a;
-    padding: 12px 28px;
-    font-size: 1.1rem;
+    /* Restauración de color rojo con efecto de gota 3D */
+    background: radial-gradient(circle at 30% 30%, #ff5e3a 0%, var(--accent-red) 50%, #b31b00 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #FFFFFF; /* Texto blanco para máximo contraste */
+    padding: 8px 20px; /* Botón de compra más pequeño */
+    font-size: 0.95rem;
     font-weight: 800;
-    border-radius: 14px;
+    border-radius: 50px; /* Forma de gota/píldora */
     cursor: pointer;
-    box-shadow: 0 8px 24px rgba(223,255,0,0.14);
-    transition: transform 250ms ease-out, box-shadow 250ms ease, background 200ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    /* Sombras para efecto de volumen y profundidad */
+    box-shadow: 
+        0 10px 25px rgba(255, 38, 0, 0.4),
+        inset 0 4px 6px rgba(255, 255, 255, 0.4), 
+        inset 0 -4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .buy-btn:hover {
     transform: translateY(-1px) scale(1.01);
-    box-shadow: 0 12px 30px rgba(223,255,0,0.16);
+    background: radial-gradient(circle at 30% 30%, #b2ff59 0%, var(--accent-green) 50%, #00c853 100%);
+    box-shadow: 
+        0 15px 30px rgba(0, 255, 102, 0.5),
+        inset 0 6px 8px rgba(255, 255, 255, 0.5), 
+        inset 0 -4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* buy button active/cart state */
+.buy-btn.cart-active {
+    background: radial-gradient(circle at 30% 30%, #00ffcc 0%, var(--accent-green) 50%, #00b34a 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    box-shadow: 
+        0 10px 25px rgba(0, 255, 102, 0.4),
+        inset 0 4px 6px rgba(255, 255, 255, 0.5), 
+        inset 0 -4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* logo principal en el centro */
@@ -130,68 +312,15 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: stretch; /* Fix: evita que el grid de productos se colapse al centro en Brave */
     width: 100%;
-    padding-top: 16px;
+    transition: opacity 0.4s ease;
     gap: 20px;
+    overflow-y: auto; /* Activado para permitir el desplazamiento vertical */
+    min-height: 0; /* Permite que el flex item se encoja si es necesario */
 }
 
-.hero-heading {
-    color: transparent;
-    font-size: clamp(3.5rem, 9vw, 8rem);
-    font-weight: 900;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    text-align: right;
-    background: linear-gradient(135deg, #ffffff 0%, #7dd3fc 50%, #0369a1 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    text-shadow: 0 18px 40px rgba(12, 28, 68, 0.22);
-    line-height: 0.9;
-    position: absolute;
-    right: 40px;
-    bottom: 140px;
-    max-width: min(600px, 80vw);
-    opacity: 0;
-    pointer-events: none; /* Evita que el texto bloquee clics en productos */
-    transform: translateY(24px) scale(1);
-    /* Transición más lenta para el fondo */
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
-    animation: headlineRise 1s ease-out 0.2s forwards;
-}
 
-.hero-heading::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: -14px;
-    width: 80px;
-    height: 4px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.8);
-    filter: blur(0.8px);
-}
-
-@keyframes headlineRise {
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Estado cuando la tienda está activa */
-.shop-active .hero-heading {
-    opacity: 0.08 !important; /* No se oculta, queda como marca de agua */
-    transform: scale(0.9);
-    filter: blur(8px);
-    pointer-events: none;
-}
-
-.shop-active .corner-logo .piece {
-    opacity: 0.1 !important;
-    filter: blur(12px);
-    transition: opacity 1s ease, filter 1s ease, transform 1s ease;
-}
 
 .central-logo{
     position:absolute;
@@ -203,258 +332,44 @@ body {
     pointer-events:none;
 }
 
-.piece{
-    position:absolute;
-    background:#fff;
-    filter:drop-shadow(0 4px 8px rgba(0,0,0,.18));
-    pointer-events: none; /* Las piezas del logo no deben capturar clics */
-    opacity:0;
-}
-
-/* Pieza superior */
-.p1{
-    width:210px;
-    height:230px;
-    left:150px;
-    top:20px;
-
-    clip-path:polygon(
-        15% 0%,
-        100% 0%,
-        100% 32%,
-        0% 100%,
-        15% 32%
-    );
-}
-
-/* Pieza inferior izquierda */
-.p2{
-    width:400px;
-    height:260px;
-    left:-70px;
-    top:140px;
-    
-    clip-path:polygon(
-        0% 100%,
-        42% 76%,
-        100% 0%,
-        58% 100%
-    );
-   
-}
-
-/* triangulo inferior */
-.p3{
-    width:280px;
-    height:115px;
-    left:240px;
-    top:200px;
-
-    clip-path:polygon(
-        30% 0%,
-        100% 38%,
-        0% 100%
-    );
-}
-
-/* Triángulo pequeño */
-.p4{
-    width:90px;
-    height:30px;
-    left:340px;
-    top:100px;
-
-    clip-path:polygon(
-        42% 0%,
-        100% 78%,
-        0% 100%
-    );
-}
-
-/* Animaciones de entrada para las piezas */
-.p1{
-    animation: piece1 1.4s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.p2{
-    animation: piece2 1.4s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.p3{
-    animation: piece3 1.4s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.p4{
-    animation: piece4 1.4s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-@keyframes piece1{
-    from{
-        opacity:0;
-        transform:translateY(-300px) rotate(-25deg);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0) rotate(0);
-    }
-}
-
-@keyframes piece2{
-    from{
-        opacity:0;
-        transform:translateX(-500px) rotate(-15deg);
-    }
-    to{
-        opacity:1;
-        transform:translateX(0) rotate(0);
-    }
-}
-
-@keyframes piece3{
-    from{
-        opacity:0;
-        transform:translateX(500px) rotate(20deg);
-    }
-    to{
-        opacity:1;
-        transform:translateX(0) rotate(0);
-    }
-}
-
-@keyframes piece4{
-    from{
-        opacity:0;
-        transform:translateY(-200px) translateX(150px) scale(.2);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0) translateX(0) scale(1);
-    }
-}
-.products-grid {
-    position: relative;
-    z-index: 1;
-    width: min(100%, 980px);
-    display: grid;
-    grid-template-columns: repeat(2, minmax(240px, 1fr));
-    gap: 22px;
-}
-
-/* menú lateral flotante estilo glassmorphism */
-.side-menu {
-    position: absolute;
-    top: 100px;
-    right: 30px;
-    width: 280px;
-    height: auto;
-    background: rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px) saturate(170%);
-    -webkit-backdrop-filter: blur(20px) saturate(170%);
-    border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    z-index: 100;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.25);
-    transform-origin: top right;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0;
-    transform: scale(0.1);
-    pointer-events: none;
-}
-
-.side-menu.active {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-}
-
-.close-menu {
-    align-self: flex-end;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    color: #1c2541;
-    font-size: 1.25rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.close-menu:hover {
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 0.75);
-}
-
+/* Estilos para el menú expandible dentro de la barra superior */
 .menu-links {
     list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin: 0;
+    transition: max-width 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease, margin 0.6s ease;
+}
+
+.glass-nav.menu-active .menu-links {
+    max-width: 600px;
+    opacity: 1;
+    margin: 0 10px;
 }
 
 .menu-links li a {
     text-decoration: none;
-    color: #1c2541;
-    font-size: 1.15rem;
+    color: var(--primary-wayuu);
+    font-size: 0.9rem;
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 8px;
+    padding: 8px 12px;
     cursor: pointer;
-    border-radius: 16px;
-    transition: background 0.2s ease, transform 0.2s ease;
+    border-radius: 15px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
 }
 
 .menu-links li a:hover {
-    background: rgba(255, 255, 255, 0.4);
-    color: #000000;
-    transform: translateX(4px);
-}
-
-.menu-brand {
-    margin-top: 16px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    color: transparent;
-    font-size: 1.4rem;
-    font-weight: 900;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    line-height: 1.05;
-    background: linear-gradient(125deg, #ffffff, #d9eeff 45%, #7bb2ff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    text-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-    position: relative;
-    opacity: 0;
-    transform: translateY(18px) scale(0.96);
-    animation: brandFadeIn 0.9s ease-out 0.7s forwards;
-}
-
-.menu-brand::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    width: 56px;
-    height: 4px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.65);
-    filter: blur(0.6px);
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 @keyframes brandFadeIn {
@@ -471,7 +386,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(11, 19, 43, 0.4);
+    background: rgba(42, 0, 0, 0.4); /* Darker, Wayuu-inspired transparent background */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     z-index: 90;
@@ -491,8 +406,8 @@ body {
 .shop-container {
     width: 98%;
     max-width: 1500px;
-    height: 95%;
-    background: rgba(255, 255, 255, 0.95);
+    height: 95%; 
+    background: rgba(255, 255, 255, 0.95); /* Keep it mostly white for product visibility */
     border-radius: 24px;
     padding: 30px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.2);
@@ -510,15 +425,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    color: #1c2541;
+    margin-bottom: 20px; 
+    color: #2A0000; /* Dark Wayuu-inspired color */
 }
 
 .close-shop {
     background: transparent;
     border: none;
     font-size: 1.8rem;
-    cursor: pointer;
+    cursor: pointer; 
+    color: #2A0000; /* Dark Wayuu-inspired color */
 }
 
 .shop-grid {
@@ -531,30 +447,84 @@ body {
 }
 
 .product-card {
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-radius: 14px;
-    padding: 18px;
-    border: 1px solid rgba(255,255,255,0.45);
+    background: #ffffff; 
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 20px;
+    padding: 15px; 
+    border: 1px solid rgba(0, 0, 0, 0.08);
     position: relative;
-    color: #0b132b;
-    box-shadow: 0 8px 20px rgba(11,19,43,0.05);
-    transform: translateY(8px);
-    opacity: 0;
-    animation: popIn 360ms cubic-bezier(0.2,0.9,0.27,1) both;
+    color: #2A0000; /* Dark Wayuu-inspired color */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease, border-color 0.6s ease;
+    perspective: 2500px;
+    overflow: hidden; /* Necesario para contener el destello */
+    z-index: 1;
+    backface-visibility: hidden;
+    transform: translateZ(0); /* Aceleración por hardware */
+}
+
+/* Capas de contenido para evitar solapamientos */
+.product-img-container {
+    position: relative;
+    z-index: 5; /* Imagen al fondo */
+}
+
+.product-card h3, .product-card p, .product-footer {
+    position: relative;
+    z-index: 10; /* Texto sobre la imagen */
 }
 
 .product-badge {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: #1e88e5;
-    color: white;
+    z-index: 30; /* El Badge siempre arriba de todo */
+    background: var(--accent-green);
+    color: #003311;
     font-size: 0.75rem;
+    font-weight: 700;
     padding: 4px 10px;
     border-radius: 20px;
     text-transform: lowercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Destello interno (Cristal) */
+.product-card::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 450px; 
+    height: 450px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.2) 0%,
+        transparent 70%
+    );
+    transform: translate(-50%, -50%) rotate(var(--glint-angle, -25deg)) translateY(130%);
+    pointer-events: none;
+    z-index: 2; 
+}
+
+.product-card:hover::before {
+    opacity: 1;
+    animation: glintMove 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.product-card:hover {
+    /* Movimiento más decente: elevación clara y leve inclinación */
+    transform: translateY(-15px) scale(1.03) rotateX(3deg);
+    filter: none !important; /* Corregido: Ahora elimina cualquier filtro de desenfoque */
+    backdrop-filter: none !important; /* Elimina el efecto esmerilado para máxima claridad */
+    -webkit-backdrop-filter: none !important;
+    background: #ffffff; 
+    /* Sombra multi-capa para profundidad real */
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.15), 
+        0 10px 10px rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 255, 102, 0.5);
 }
 
 .product-img-placeholder {
@@ -570,15 +540,41 @@ body {
 }
 
 .product-card h3 {
-    font-size: 1.25rem;
-    color: #0b132b;
+    font-size: 1.25rem; /* Restaurado tamaño original */
+    color: #2A0000; /* Dark Wayuu-inspired color */
     margin-bottom: 6px;
 }
 
 .product-card p {
-    font-size: 1.05rem;
-    color: #334155;
-    margin-bottom: 14px;
+    font-size: 0.75rem; /* Aún más pequeña y elegante */
+    color: #5C0000; /* Slightly lighter dark Wayuu-inspired color */
+    margin-bottom: 12px;
+    line-height: 1.4;
+    opacity: 0.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Máximo 2 líneas para que no ocupen mucho espacio */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary-wayuu);
+}
+
+.quantity-selector input {
+    width: 45px;
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.5);
+    text-align: center;
+    outline: none;
 }
 
 .product-footer {
@@ -588,66 +584,92 @@ body {
 }
 
 .price {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Restaurado tamaño original */
     font-weight: 700;
-    color: #1c2541;
+    color: #2A0000; /* Dark Wayuu-inspired color */
 }
 
 .add-to-cart {
-    background: #DFFF00;
-    color: #072018;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 10px;
+    background: rgba(0, 255, 102, 0.1); 
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    color: #008f39; 
+    border: 1px solid rgba(0, 255, 102, 0.4);
+    padding: 10px 20px; /* Más padding */
+    border-radius: 12px; /* Borde más suave */
     cursor: pointer;
     font-weight: 700;
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
-    box-shadow: 0 6px 14px rgba(223,255,0,0.12);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+    box-shadow: 0 6px 14px rgba(0, 255, 102, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+.add-to-cart:hover {
+    background: rgba(0, 255, 102, 0.2);
+    border-color: rgba(0, 255, 102, 0.6);
+    box-shadow: 0 10px 20px rgba(0, 255, 102, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .add-to-cart:active { transform: translateY(1px) scale(0.995); }
-.add-to-cart:hover { box-shadow: 0 10px 20px rgba(0,255,102,0.16); }
 
 /* Productos dentro del main */
 .products-grid {
     position: relative;
     z-index: 1;
-    width: min(100%, 1200px);
+    width: 100%; 
+    max-width: 1600px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    margin: 20px auto;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 300ms ease, transform 300ms ease;
-    pointer-events: none;
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas proporcionales */
+    gap: 20px; 
+    padding: 40px 20px 40px 20px; /* Reducido drásticamente el padding inferior para ocupar todo el espacio */
+    margin: 0 auto;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 400ms ease, transform 400ms ease, visibility 400ms;
+    pointer-events: auto;
 }
 
-.products-grid.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+/* Estilo de la barra de scroll para la tienda */
+.main-content::-webkit-scrollbar {
+    width: 6px; /* Más delgada para mayor sutileza */
+    display: block !important; /* Forzamos visualización */
+}
+.main-content::-webkit-scrollbar-track {
+    background: transparent; /* Fondo transparente para no ensuciar el diseño */
+    border-radius: 10px;
+}
+.main-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 102, 0.2); /* Color verde muy suave y transparente */
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+.main-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 102, 0.5); /* Se nota un poco más al pasar el mouse */
+}
+
+.products-grid.active { 
+    opacity: 1; 
+    transform: translateY(0); 
+    pointer-events: auto;
+    visibility: visible;
+}
 
 @keyframes popIn {
     from { opacity: 0; transform: translateY(12px) scale(0.995); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* stagger usando inline style animation-delay aplicado por JS */
-
-/* interfaz de login */
 .login-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: transparent; /* No overlay color, container itself is the background */
     z-index: 110;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    opacity: 0; 
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
@@ -657,51 +679,219 @@ body {
     pointer-events: auto;
 }
 
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .login-card {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    width: 320px;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    padding: 40px 35px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    box-shadow: none;
+    opacity: 0;
+    animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards; /* Añadido retraso de 0.25s */
+    overflow: hidden;
+}
+
+/* Efecto de destello de cristal para el Login */
+.login-card::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 160px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    transform: translate(-50%, -50%) rotate(-35deg) translateY(200%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.login-overlay.active .login-card::before {
+    /* El brillo se activa 0.6s después para que la ventana ya haya terminado de crecer */
+    animation: glintMove 2.2s cubic-bezier(0.23, 1, 0.32, 1) 0.8s forwards;
 }
 
 .close-login {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
     background: transparent;
     border: none;
-    font-size: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2rem;
+    line-height: 1;
     cursor: pointer;
+    color: white;
+    opacity: 0.8;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+}
+
+/* Asegurar que el contenido del login esté sobre el destello */
+.login-card h3, 
+.login-form, 
+.social-login-divider, 
+.social-login-container {
+    position: relative;
+    z-index: 5;
+}
+
+.close-login:hover { 
+    opacity: 1;
+    background: transparent;
+    transform: scale(1.2) rotate(90deg);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
 }
 
 .login-card h3 {
     margin-bottom: 20px;
-    color: #1c2541;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.social-login-divider {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    margin: 20px 0 15px;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    text-transform: lowercase;
+}
+
+.social-login-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.social-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 1.2rem;
+}
+
+.social-btn.phone {
+    background: radial-gradient(circle at 30% 30%, #fff4b3 0%, var(--accent-gold) 50%, #b8860b 100%);
+    color: var(--primary-wayuu);
+    box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.social-btn.google {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 1);
+}
+
+.social-btn.facebook {
+    background: radial-gradient(circle at 30% 30%, #4c70ba 0%, #3b5998 50%, #2d4373 100%);
+    color: white;
+    box-shadow: 0 5px 15px rgba(59, 89, 152, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.social-btn:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 20px;
+    width: 100%;
+    max-width: 320px;
 }
 
 .login-form input {
-    padding: 10px 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 1.15rem;
+    background: rgba(255, 255, 255, 0.4); /* Mucho más visible */
+    border: 2px solid rgba(255, 215, 0, 0.8); /* Borde dorado marcado */
+    border-radius: 12px;
     outline: none;
+    color: #000; /* Texto oscuro para máxima visibilidad */
+    transition: all 0.3s ease;
+}
+
+.login-form input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.login-form input:focus {
+    border-color: var(--accent-gold);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    animation: goldPulse 2s infinite ease-in-out;
+}
+
+@keyframes goldPulse {
+    0% { border-color: rgba(255, 215, 0, 0.4); box-shadow: 0 0 5px rgba(255, 215, 0, 0.2); }
+    50% { border-color: rgba(255, 215, 0, 1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+    100% { border-color: rgba(255, 215, 0, 0.4); box-shadow: 0 0 5px rgba(255, 215, 0, 0.2); }
 }
 
 .login-submit-btn {
-    background: #1e88e5;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
+    /* Efecto de gota 3D en color dorado */
+    background: radial-gradient(circle at 30% 30%, #fff4b3 0%, var(--accent-gold) 50%, #b8860b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: var(--primary-wayuu); /* Texto oscuro para mejor contraste sobre el dorado */
+    padding: 16px;
+    font-size: 1.15rem;
+    border-radius: 50px;
+    cursor: pointer; 
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 10px 25px rgba(184, 134, 11, 0.4), 
+        inset 0 4px 6px rgba(255, 255, 255, 0.6), 
+        inset 0 -4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.login-submit-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--accent-gold) 50%, #daa520 100%);
+    box-shadow: 
+        0 15px 30px rgba(184, 134, 11, 0.5), 
+        inset 0 6px 8px rgba(255, 255, 255, 0.7), 
+        inset 0 -4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* widget de asistencia con ia */
@@ -713,6 +903,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    pointer-events: none; /* Clave: el contenedor invisible ya no bloquea los productos de la derecha */
+    transition: opacity 0.4s ease;
     gap: 12px;
 }
 
@@ -720,7 +912,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #1c2541;
+    background: #2A0000; /* Dark Wayuu-inspired color */
     color: white;
     border: none;
     font-size: 1.4rem;
@@ -729,9 +921,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: auto; /* Reactiva el clic solo en el botón circular */
     transition: transform 0.3s;
 }
-
 .ai-toggle-btn:hover {
     transform: scale(1.1);
 }
@@ -739,18 +931,19 @@ body {
 .ai-chat-window {
     width: 280px;
     height: 350px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.9); /* Keep it light and transparent */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    border: 1px solid rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,165,0,0.4); /* Orange border */
     display: flex;
     flex-direction: column;
     overflow: hidden;
     opacity: 0;
     transform: translateY(20px) scale(0.95);
-    pointer-events: none;
+    pointer-events: none; 
+    /* Se mantiene así para que cuando no esté activa no estorbe */
     transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -761,13 +954,13 @@ body {
 }
 
 .ai-chat-header {
-    background: #1c2541;
+    background: #2A0000; /* Dark Wayuu-inspired color */
     color: white;
     padding: 12px;
     font-size: 0.85rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; 
 }
 
 .ai-chat-header button {
@@ -775,7 +968,7 @@ body {
     border: none;
     color: white;
     font-size: 1.2rem;
-    cursor: pointer;
+    cursor: pointer; 
 }
 
 .ai-chat-body {
@@ -784,30 +977,30 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 8px; 
 }
 
 .ai-msg {
-    background: #e2e8f0;
+    background: #F0F0F0; /* Light background for AI messages */
     padding: 8px 12px;
     border-radius: 12px;
     border-bottom-left-radius: 2px;
     font-size: 1rem;
-    color: #1c2541;
+    color: #2A0000; /* Dark Wayuu-inspired color */
     max-width: 85%;
-    line-height: 1.3;
+    line-height: 1.3; 
     align-self: flex-start;
 }
 
 .user-msg {
-    background: #1e88e5;
+    background: #FF2600; /* Fluorescent red */
     color: white;
     padding: 8px 12px;
     border-radius: 12px;
     border-bottom-right-radius: 2px;
     font-size: 1rem;
     max-width: 85%;
-    align-self: flex-end;
+    align-self: flex-end; 
 }
 
 .ai-chat-footer {
@@ -828,7 +1021,7 @@ body {
 .ai-chat-footer button {
     background: transparent;
     border: none;
-    color: #1e88e5;
+    color: #FF2600; /* Fluorescent red */
     cursor: pointer;
     padding: 4px;
 }
@@ -837,13 +1030,13 @@ body {
 .cart-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(42, 0, 0, 0.5); /* Darker, Wayuu-inspired transparent background */
     backdrop-filter: blur(8px);
     z-index: 300;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    opacity: 0; 
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
@@ -857,7 +1050,7 @@ body {
     border-radius: 24px;
     padding: 24px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     gap: 20px;
 }
 
@@ -866,21 +1059,21 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+    padding-bottom: 10px; 
 }
 
-.cart-header h3 { color: #1c2541; text-transform: uppercase; letter-spacing: 1px; }
+.cart-header h3 { color: #2A0000; text-transform: uppercase; letter-spacing: 1px; }
 
-#closeCartBtn { background: none; border: none; font-size: 2rem; cursor: pointer; color: #64748b; }
+#closeCartBtn { background: none; border: none; font-size: 2rem; cursor: pointer; color: #5C0000; }
 
 .cart-items { min-height: 100px; max-height: 300px; overflow-y: auto; }
 
 .cart-item {
-    display: flex;
+    display: flex; 
     justify-content: space-between;
     padding: 10px 0;
     border-bottom: 1px solid #f8fafc;
-    font-weight: 500;
+    font-weight: 500; 
 }
 
 .empty-msg { text-align: center; color: #94a3b8; padding: 20px; }
@@ -889,20 +1082,20 @@ body {
     display: flex;
     justify-content: space-between;
     font-size: 1.4rem;
-    font-weight: 800;
-    color: #1c2541;
-    margin-bottom: 15px;
+    font-weight: 800; 
+    color: #2A0000; /* Dark Wayuu-inspired color */
+    margin-bottom: 15px; 
 }
 
 .checkout-btn {
-    width: 100%;
-    background: #1c2541;
+    width: 100%; 
+    background: #FF2600; /* Fluorescent red */
     color: white;
     border: none;
     padding: 15px;
     font-weight: 700;
     font-size: 1rem;
-    cursor: pointer;
+    cursor: pointer; 
     border-radius: 12px;
 }
 
@@ -911,13 +1104,14 @@ body {
     height: 140px;
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 10px;
+    background: #f1f5f9;
+    margin-bottom: 10px; 
 }
 
 .product-img-container img {
     width: 100%;
     height: 100%;
-    object-fit: crop;
+    object-fit: cover; /* Corregido de 'crop' a 'cover' para que la imagen se vea bien */
     transition: transform 0.3s ease;
 }
 
@@ -931,13 +1125,13 @@ body {
 .contact-overlay-full {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(42, 0, 0, 0.85); /* Darker, Wayuu-inspired transparent background */
     backdrop-filter: blur(15px);
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    opacity: 0; 
     pointer-events: none;
     transition: opacity 0.4s ease;
 }
@@ -950,8 +1144,8 @@ body {
 .phone-number {
     font-size: clamp(3rem, 12vw, 8rem);
     font-weight: 900;
-    color: #DFFF00;
-    text-shadow: 0 0 30px rgba(223, 255, 0, 0.5);
+    color: #00ff66; /* Verde para contacto */
+    text-shadow: 0 0 30px rgba(0, 255, 102, 0.5); 
     letter-spacing: 5px;
 }
 
@@ -959,7 +1153,7 @@ body {
 .animate-fade-in {
     animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
+/* La animación smoothLogoEntrance ya no se usa directamente en los elementos eliminados */
 .animate-scale-up {
     opacity: 0;
     animation: smoothLogoEntrance 1.4s cubic-bezier(0.15, 0.85, 0.31, 1) forwards;
@@ -996,7 +1190,7 @@ button {
         transform 250ms ease-out,
         box-shadow 250ms ease,
         background 200ms ease;
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent; 
 }
 
 /* Hover más suave */
@@ -1009,12 +1203,12 @@ button:active {
     transform: translateY(0) scale(0.98);
 }
 
-/* Focus */
+/* Focus */ 
 button:focus {
     outline: none;
     box-shadow:
         0 4px 12px rgba(12,20,30,0.10),
-        0 0 0 3px rgba(0,255,102,0.06);
+        0 0 0 3px rgba(255, 38, 0, 0.06); /* Red focus ring */
 }
 
 /* Small adjustment to avoid double-scaling */
@@ -1022,10 +1216,6 @@ button:hover { transform: scale(1.02); }
 button:active { transform: scale(0.99); }
 
 /* buy button active/cart state */
-.buy-btn.cart-active {
-    background: #DFFF00;
-    color: #00110a;
-}
 
 /* Ripple element */
 .ripple {
@@ -1035,7 +1225,7 @@ button:active { transform: scale(0.99); }
     animation: rippleAnim 600ms linear;
     pointer-events: none;
     opacity: 0.9;
-    background: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.35); /* Keep white for general ripple */
 }
 
 @keyframes rippleAnim {

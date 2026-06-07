@@ -6,25 +6,31 @@
     <title>Iron fit</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <!-- Vinculamos el script externo para que la lógica de los 40 stickers funcione -->
+    <script src="script.js" defer></script>
 </head>
 <body>
+
+    <div class="parallax-bg">
+        <div class="floating-stickers-container" id="stickersContainer">
+            <!-- El JavaScript generará los 40 stickers aquí automáticamente -->
+        </div>
+    </div>
 
     <div class="canvas-container animate-fade-in">
         
         <header class="top-bar">
-            <div class="corner-logo">
-                <div class="piece p1"></div>
-                <div class="piece p2"></div>
-                <div class="piece p3"></div>
-                <div class="piece p4"></div>
-            </div>
             <div class="glass-nav">
                 <button class="nav-btn" id="loginBtn" title="perfil / acceso">
                     <i class="fa-regular fa-user"></i>
                 </button>
-                <button class="buy-btn" id="openShopBtn">
-                    comprar ahora
-                </button>
+                <button class="buy-btn cart-active" id="openShopBtn" title="ir al carrito"><i class="fa-solid fa-cart-shopping"></i> ir al carrito</button>
+                <ul class="menu-links" id="menuLinks">
+                    <li><a href="#" id="linkInicio"><i class="fa-solid fa-house"></i> inicio</a></li>
+                    <li><a href="#" id="linkProductos"><i class="fa-solid fa-shirt"></i> productos</a></li>
+                    <li><a href="#" id="linkTecnologia"><i class="fa-solid fa-bolt"></i> tecnología</a></li>
+                    <li><a href="#" id="linkContacto"><i class="fa-solid fa-envelope"></i> contacto</a></li>
+                </ul>
                 <button class="nav-btn" id="menuBtn" title="menú">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -38,17 +44,6 @@
             </div>
         </main>
 
-        <div class="hero-heading" aria-label="Nombre de la página">IRON FIT</div>
-
-        <nav class="side-menu" id="sideMenu">
-            <ul class="menu-links">
-                <li><a href="#" id="linkInicio"><i class="fa-solid fa-house"></i> inicio</a></li>
-                <li><a href="#" id="linkProductos"><i class="fa-solid fa-shirt"></i> productos</a></li>
-                <li><a href="#" id="linkTecnologia"><i class="fa-solid fa-bolt"></i> tecnología</a></li>
-                <li><a href="#" id="linkContacto"><i class="fa-solid fa-envelope"></i> contacto</a></li>
-            </ul>
-        </nav>
-
         <section class="shop-overlay" id="shopOverlay">
             <div class="shop-container">
                 <div class="shop-header">
@@ -59,10 +54,14 @@
                     <div class="product-card">
                         <div class="product-badge">premium</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=300&h=300&fit=crop" alt="Smart Sweater v1">
+                            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=300&h=300&fit=crop" alt="Smart Sweater v1" loading="lazy" decoding="async" width="300" height="300">
                         </div>
                         <h3>smart sweater v1</h3>
-                        <p>buzo inteligente con carga inalámbrica integrada y diseño optimizado.</p>
+                        <p class="small-desc">buzo inteligente con carga inalámbrica integrada.</p>
+                        <div class="quantity-selector">
+                            <label>cantidad:</label>
+                            <input type="number" value="1" min="1" max="99">
+                        </div>
                         <div class="product-footer">
                             <span class="price">$149.99</span>
                             <button class="add-to-cart">añadir</button>
@@ -71,10 +70,14 @@
                     <div class="product-card">
                         <div class="product-badge">premium</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1516724562728-afc824a36e84?q=80&w=300&h=300&fit=crop" alt="Smart Sweater v2">
+                            <img src="https://images.unsplash.com/photo-1516724562728-afc824a36e84?q=80&w=300&h=300&fit=crop" alt="Smart Sweater v2" loading="lazy" decoding="async" width="300" height="300">
                         </div>
                         <h3>smart sweater v2</h3>
                         <p>versión mejorada con tecnología de temperatura adaptativa y control por app.</p>
+                        <div class="quantity-selector">
+                            <label>cantidad:</label>
+                            <input type="number" value="1" min="1">
+                        </div>
                         <div class="product-footer">
                             <span class="price">$179.99</span>
                             <button class="add-to-cart">añadir</button>
@@ -83,10 +86,14 @@
                     <div class="product-card">
                         <div class="product-badge">nuevo</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=300&h=300&fit=crop" alt="Smart Zapatillas Pro">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=300&h=300&fit=crop" alt="Smart Zapatillas Pro" loading="lazy" decoding="async" width="300" height="300">
                         </div>
                         <h3>smart zapatillas pro</h3>
                         <p>zapatillas con sensor de pasos, GPS integrado y análisis de rendimiento.</p>
+                        <div class="quantity-selector">
+                            <label>cantidad:</label>
+                            <input type="number" value="1" min="1">
+                        </div>
                         <div class="product-footer">
                             <span class="price">$199.99</span>
                             <button class="add-to-cart">añadir</button>
@@ -95,10 +102,14 @@
                     <div class="product-card">
                         <div class="product-badge">oferta</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=300&h=300&fit=crop" alt="Smartwatch Elite">
+                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=300&h=300&fit=crop" alt="Smartwatch Elite" loading="lazy" decoding="async" width="300" height="300">
                         </div>
                         <h3>smartwatch elite</h3>
                         <p>reloj inteligente con monitoreo de salud 24/7 y batería de 7 días.</p>
+                        <div class="quantity-selector">
+                            <label>cantidad:</label>
+                            <input type="number" value="1" min="1">
+                        </div>
                         <div class="product-footer">
                             <span class="price">$249.99</span>
                             <button class="add-to-cart">añadir</button>
@@ -107,10 +118,14 @@
                     <div class="product-card">
                         <div class="product-badge">premium</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=300&h=300&fit=crop" alt="Athletic Tank Top">
+                            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=300&h=300&fit=crop" alt="Athletic Tank Top" loading="lazy" decoding="async" width="300" height="300">
                         </div>
                         <h3>athletic tank top</h3>
                         <p>camiseta deportiva inteligente con regulación térmica y transpirabilidad.</p>
+                        <div class="quantity-selector">
+                            <label>cantidad:</label>
+                            <input type="number" value="1" min="1">
+                        </div>
                         <div class="product-footer">
                             <span class="price">$89.99</span>
                             <button class="add-to-cart">añadir</button>
@@ -119,7 +134,7 @@
                     <div class="product-card">
                         <div class="product-badge">nuevo</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=300&h=300&fit=crop" alt="Gorra Fitness">
+                            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=300&h=300&fit=crop" alt="Gorra Fitness" loading="lazy" decoding="async" width="300" height="300">
                         </div>
                         <h3>smart gorra fitness</h3>
                         <p>gorra con sensor de frecuencia cardíaca y conexión bluetooth.</p>
@@ -131,7 +146,7 @@
                     <div class="product-card">
                         <div class="product-badge">premium</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=300&h=300&fit=crop" alt="Pantalón Inteligente">
+                            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=300&h=300&fit=crop" alt="Pantalón Inteligente" loading="lazy" decoding="async" width="300" height="300">
                         </div>
                         <h3>pantalón inteligente</h3>
                         <p>pantalón deportivo con bolsillos inteligentes y carga inalámbrica integrada.</p>
@@ -143,12 +158,133 @@
                     <div class="product-card">
                         <div class="product-badge">oferta</div>
                         <div class="product-img-container">
-                            <img src="https://images.unsplash.com/photo-1571945153237-4929e783ee4a?q=80&w=300&h=300&fit=crop" alt="Pack Básico">
+                            <img src="https://images.unsplash.com/photo-1571945153237-4929e783ee4a?q=80&w=300&h=300&fit=crop" alt="Pack Básico" loading="lazy" decoding="async" width="300" height="300">
                         </div>
                         <h3>pack básico 3 prendas</h3>
                         <p>combo de 3 prendas inteligentes con descuento especial.</p>
                         <div class="product-footer">
                             <span class="price">$349.99</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">premium</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=300&h=300&fit=crop" alt="Chaqueta Tech" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>tech shell jacket</h3>
+                        <p>chaqueta impermeable con fibras de carbono y paneles solares flexibles.</p>
+                        <div class="product-footer">
+                            <span class="price">$289.99</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">oferta</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=300&h=300&fit=crop" alt="Headphones Bio" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>bio-haptic headphones</h3>
+                        <p>audífonos que sincronizan el ritmo cardíaco con la música ambiental.</p>
+                        <div class="product-footer">
+                            <span class="price">$120.00</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">nuevo</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=300&h=300&fit=crop" alt="Smart T-Shirt" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>electro-weave t-shirt</h3>
+                        <p>camiseta con sensores musculares para optimizar tu entrenamiento en tiempo real.</p>
+                        <div class="product-footer">
+                            <span class="price">$95.00</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">premium</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1584000000000-000000000000?q=80&w=300&h=300&fit=crop" alt="Pantalones Yoga Smart" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>yoga smart leggings</h3>
+                        <p>pantalones con guía de postura mediante micro-vibraciones hápticas.</p>
+                        <div class="product-footer">
+                            <span class="price">$115.00</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">nuevo</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=300&h=300&fit=crop" alt="Smart Hat" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>neuro-link beanie</h3>
+                        <p>gorro inteligente que monitorea ondas alfa para mejorar la concentración.</p>
+                        <div class="product-footer">
+                            <span class="price">$65.00</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">premium</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=300&h=300&fit=crop" alt="Suit Smart" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>executive nano-suit</h3>
+                        <p>traje ejecutivo con tecnología anti-manchas y climatización interna.</p>
+                        <div class="product-footer">
+                            <span class="price">$850.00</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">oferta</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=300&h=300&fit=crop" alt="Tech Shoes" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>gravity sneakers</h3>
+                        <p>calzado con amortiguación magnética para reducir el impacto en articulaciones.</p>
+                        <div class="product-footer">
+                            <span class="price">$210.00</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">nuevo</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=300&h=300&fit=crop" alt="Performance Shorts" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>kinetic power shorts</h3>
+                        <p>shorts que recuperan energía de tu movimiento para cargar dispositivos.</p>
+                        <div class="product-footer">
+                            <span class="price">$75.00</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <!-- Añadiendo más productos para probar el scroll -->
+                    <div class="product-card">
+                        <div class="product-badge">oferta</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=300&h=300&fit=crop" alt="Smart Shirt" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>compression smart shirt</h3>
+                        <p>camiseta de compresión con fibras sensoras de fatiga muscular.</p>
+                        <div class="product-footer">
+                            <span class="price">$110.00</span>
+                            <button class="add-to-cart">añadir</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-badge">premium</div>
+                        <div class="product-img-container">
+                            <img src="https://images.unsplash.com/photo-1620138546344-7b2c0b051ed3?q=80&w=300&h=300&fit=crop" alt="Smart Glasses" loading="lazy" decoding="async" width="300" height="300">
+                        </div>
+                        <h3>iron vision glasses</h3>
+                        <p>lentes de realidad aumentada para ver métricas de ejercicio en tiempo real.</p>
+                        <div class="product-footer">
+                            <span class="price">$450.00</span>
                             <button class="add-to-cart">añadir</button>
                         </div>
                     </div>
@@ -165,6 +301,14 @@
                     <input type="password" placeholder="contraseña" required>
                     <button type="submit" class="login-submit-btn">ingresar</button>
                 </form>
+                <div class="social-login-divider">o regístrate con</div>
+                <div class="social-login-container">
+                    <button class="social-btn phone" title="Registrar con Celular"><i class="fa-solid fa-mobile-screen"></i></button>
+                    <button class="social-btn google" title="Registrar con Google">
+                        <svg viewBox="0 0 48 48" width="20" height="20"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571l6.19,5.238C40.483,35.58,44,30.357,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg>
+                    </button>
+                    <button class="social-btn facebook" title="Registrar con Facebook"><i class="fa-brands fa-facebook-f"></i></button>
+                </div>
             </div>
         </div>
 
@@ -215,10 +359,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('menuBtn');
-        const sideMenu = document.getElementById('sideMenu');
+        const menuBtn = document.getElementById('menuBtn');
+        const glassNav = document.querySelector('.glass-nav');
         const openShopBtn = document.getElementById('openShopBtn');
-        const closeShopBtn = document.getElementById('closeShopBtn');
         const shopOverlay = document.getElementById('shopOverlay');
         const loginBtn = document.getElementById('loginBtn');
         const closeLoginBtn = document.getElementById('closeLoginBtn');
@@ -233,37 +376,23 @@
         const contactOverlayFull = document.getElementById('contactOverlayFull');
         const cartItemsList = document.getElementById('cartItemsList');
         const cartTotal = document.getElementById('cartTotal');
-
-        // menú lateral - expandir desde el icono del botón
-        if (menuBtn && sideMenu) {
-            menuBtn.addEventListener('click', (e) => {
-                const container = document.querySelector('.canvas-container');
-                if (!container) return;
-                const buttonRect = menuBtn.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
-                
-                const topPos = buttonRect.bottom - containerRect.top + 8;
-                const rightPos = containerRect.right - buttonRect.right - 24;
-                
-                // Aplicar posición y z-index para evitar que otras capas bloqueen el clic
-                sideMenu.style.top = topPos + 'px';
-                sideMenu.style.right = rightPos + 'px';
-                sideMenu.style.zIndex = "2000"; 
-                sideMenu.classList.toggle('active');
-            });
-        }
+        const container = document.querySelector('.canvas-container');
 
         document.addEventListener('click', (event) => {
-            if (!sideMenu || !sideMenu.classList.contains('active')) return;
-            if (event.target.closest('#sideMenu') || event.target.closest('#menuBtn')) return;
-            sideMenu.classList.remove('active');
+            if (!glassNav || !glassNav.classList.contains('menu-active')) return;
+            if (event.target.closest('.glass-nav')) return;
+            glassNav.classList.remove('menu-active');
         });
 
         // Mover contenido del shop-overlay a productsGrid
         if (shopGrid && productsGrid) {
-            productsGrid.innerHTML = shopGrid.innerHTML;
+            // Usamos insertAdjacentHTML para NO borrar lo que script.js pueda haber añadido
+            productsGrid.insertAdjacentHTML('beforeend', shopGrid.innerHTML);
             shopGrid.innerHTML = '';
         }
+
+        // Iniciamos la tienda automáticamente después de un breve delay para que los productos de script.js carguen
+        setTimeout(() => toggleShop(true), 200);
 
         let cart = [];
 
@@ -280,13 +409,15 @@
                 container.classList.add('shop-active');
                 productsGrid.classList.add('active');
                 openShopBtn.classList.add('cart-active');
-                openShopBtn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i>';
+                openShopBtn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i> ir al carrito';
                 productsGrid.setAttribute('aria-hidden', 'false');
             } else {
+                nav.style.zIndex = "10";
+                container.style.zIndex = "1";
                 container.classList.remove('shop-active');
                 productsGrid.classList.remove('active');
                 openShopBtn.classList.remove('cart-active');
-                openShopBtn.textContent = 'comprar ahora';
+                openShopBtn.innerHTML = 'comprar ahora';
                 productsGrid.setAttribute('aria-hidden', 'true');
             }
 
@@ -321,21 +452,21 @@
 
         document.getElementById('linkInicio').addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             toggleShop(false); 
-            if (sideMenu) sideMenu.classList.remove('active');
+            if (glassNav) glassNav.classList.remove('menu-active');
             
             // Cerrar todos los estados
             if (contactOverlayFull) contactOverlayFull.classList.remove('active');
-            if (loginOverlay) loginOverlay.classList.remove('active');
+            loginOverlay.classList.remove('active');
+            container.classList.remove('login-mode');
+            aiChatWindow.classList.remove('active');
             if (cartOverlay) cartOverlay.classList.remove('active');
-
-            // Reiniciar animaciones de forma segura para el navegador
-            const pieces = document.querySelectorAll('.piece');
-            const heading = document.querySelector('.hero-heading');
+            
+            // Reiniciar animaciones de forma segura para el navegador si es necesario
             const canv = document.querySelector('.canvas-container');
             
-            const elements = [...Array.from(pieces)];
-            if(heading) elements.push(heading);
+            const elements = [];
             if(canv) elements.push(canv);
 
             elements.forEach(el => {
@@ -347,20 +478,38 @@
 
         document.getElementById('linkProductos').addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             toggleShop(true, false);
-            sideMenu.classList.remove('active');
+            if (glassNav) glassNav.classList.remove('menu-active');
+            // Cerrar login si está abierto
+            loginOverlay.classList.remove('active');
+            container.classList.remove('login-mode');
+            // Cerrar chat IA
+            aiChatWindow.classList.remove('active');
         });
 
         document.getElementById('linkTecnologia').addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             toggleShop(true, true);
-            sideMenu.classList.remove('active');
+            if (glassNav) glassNav.classList.remove('menu-active');
+            // Cerrar login si está abierto
+            loginOverlay.classList.remove('active');
+            container.classList.remove('login-mode');
+            // Cerrar chat IA
+            aiChatWindow.classList.remove('active');
         });
 
         document.getElementById('linkContacto').addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             contactOverlayFull.classList.add('active'); // Mostrar número
-            sideMenu.classList.remove('active');
+            if (glassNav) glassNav.classList.remove('menu-active');
+            // Cerrar login si está abierto
+            loginOverlay.classList.remove('active');
+            container.classList.remove('login-mode');
+            // Cerrar chat IA
+            aiChatWindow.classList.remove('active');
         });
 
         contactOverlayFull.addEventListener('click', () => {
@@ -397,6 +546,15 @@
                 }, 1000);
             }
         });
+
+        // Lógica para aleatorizar la dirección del destello en los productos
+        productsGrid.addEventListener('mouseover', (e) => {
+            const card = e.target.closest('.product-card');
+            if (card && !card.style.getPropertyValue('--glint-angle')) {
+                const randomAngle = Math.floor(Math.random() * 360) + 'deg';
+                card.style.setProperty('--glint-angle', randomAngle);
+            }
+        }, true);
 
         function updateCartUI() {
             cartItemsList.innerHTML = '';
@@ -457,32 +615,52 @@
         if (closeShopBtn) closeShopBtn.style.display = 'none';
 
         // login
-        loginBtn.addEventListener('click', () => loginOverlay.classList.add('active'));
-        closeLoginBtn.addEventListener('click', () => loginOverlay.classList.remove('active'));
-
-        // chat bot ia
-        aiToggleBtn.addEventListener('click', () => aiChatWindow.classList.toggle('active'));
-        minimizeChat.addEventListener('click', () => aiChatWindow.classList.remove('active'));
+        loginBtn.addEventListener('click', () => {
+            glassNav.classList.remove('menu-active');
+            
+            // Desactivar la tienda si está abierta para limpiar el layout antes de encoger
+            toggleShop(false);
+            
+            container.classList.add('login-mode');
+            loginOverlay.classList.add('active');
         });
+
+        const closeLogin = () => {
+            container.classList.remove('login-mode');
+            loginOverlay.classList.remove('active');
+        };
+
+        closeLoginBtn.addEventListener('click', closeLogin);
+        
+        loginOverlay.addEventListener('click', (e) => {
+            if (e.target === loginOverlay) closeLogin();
+        });
+    });
     </script>
+
     <script>
-        // ripple effect for buttons
-        document.addEventListener('click', function(e){
-            const btn = e.target.closest('button');
-            if (!btn) return;
-            // create ripple
-            const rect = btn.getBoundingClientRect();
-            const ripple = document.createElement('span');
-            ripple.className = 'ripple';
-            const size = Math.max(rect.width, rect.height);
-            ripple.style.width = ripple.style.height = size + 'px';
-            // position centered at click
-            ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
-            ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
-            // color tweak for dark/light backgrounds
-            ripple.style.background = getComputedStyle(btn).backgroundColor.includes('rgb') ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.45)';
-            btn.appendChild(ripple);
-            setTimeout(() => { ripple.remove(); }, 650);
+        // --- MOVIMIENTO PARALAJE ---
+        let mouseX = 0, mouseY = 0;
+        let ticking = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const layers = document.querySelectorAll('.sticker-3d');
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
+                    layers.forEach(layer => {
+                        const speed = parseFloat(layer.getAttribute('data-speed'));
+                        const xMove = (centerX - mouseX) * speed;
+                        const yMove = (centerY - mouseY) * speed;
+                        layer.style.transform = `translate(${xMove}px, ${yMove}px)`;
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
     </script>
 </body>
